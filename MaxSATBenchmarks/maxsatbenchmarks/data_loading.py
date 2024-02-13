@@ -52,12 +52,12 @@ def download_maxsat125_data(
 
         response = requests.get(url, verify=False)
 
-        with open(os.path.join(dirname, "ce.zip", "wb")) as file:
+        with open(os.path.join(dirname, "ce.zip"), "wb") as file:
             file.write(response.content)
 
         import zipfile
 
-        with zipfile.ZipFile(os.path.join(dirname, "ce.zip", "r")) as zip_ref:
+        with zipfile.ZipFile(os.path.join(dirname, "ce.zip"), "r") as zip_ref:
             zip_ref.extractall(dirname)
 
         # extract data/maxsat/mse18-new/cluster-expansion/benchmarks/IS1_5.0.5.0.0.5_softer_periodic.wcnf.gz
