@@ -13,11 +13,12 @@ python = "^3.10"
 bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
 LassoBench = { git = "https://github.com/ksehic/LassoBench.git#egg=LassoBench" }
 gpy = "1.13.1"
+torch = { version = "^2.2.0", source = "torch" }
 
 [[tool.poetry.source]]
 name = "torch"
 url = "https://download.pytorch.org/whl/cpu"
-priority = "default"
+priority = "explicit"
 
 [tool.poetry.scripts]
 lasso-benchmarks = "lassobenchmarks.dna:serve"
