@@ -1,3 +1,5 @@
+import logging
+
 import LassoBench
 import numpy as np
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
@@ -27,6 +29,11 @@ benchmark_map = {
 
 class LassoServiceServicer(GRCPService):
 
+    def __init__(
+            self
+    ):
+        super().__init__(port=50053, n_cores=1)
+
     def EvaluatePoint(
             self,
             request: BenchmarkRequest,
@@ -40,3 +47,9 @@ class LassoServiceServicer(GRCPService):
             value=eval_lasso(x, benchmark),
         )
         return result
+
+
+def serve():
+    logging.basicConfig()
+    lasso = LassoServiceServicer()
+    lasso.serve()
