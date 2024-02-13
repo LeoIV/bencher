@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "ebobenchmarks"
+version = "0.1.0"
+description = ""
+authors = ["Leonard Papenmeier <leonard.papenmeier@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "ebobenchmarks", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "~3.8"
+ebo = { git = "https://github.com/LeoIV/Ensemble-Bayesian-Optimization.git" }
+bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
+
+[tool.poetry.scripts]
+start-benchmark-service = "ebobenchmarks.main:serve"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
