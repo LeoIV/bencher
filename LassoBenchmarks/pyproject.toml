@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "lassobenchmarks"
+version = "0.1.0"
+description = ""
+authors = ["Mona Lisa <leonard.papenmeier@posteo.de>"]
+readme = "README.md"
+packages = [
+    { include = "lassobenchmarks", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
+LassoBench = { git = "https://github.com/ksehic/LassoBench.git#egg=LassoBench" }
+gpy = "1.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
