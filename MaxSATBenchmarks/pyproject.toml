@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "maxsatbenchmarks"
+version = "0.1.0"
+description = ""
+authors = ["Leonard Papenmeier <leonard.papenmeier@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "maxsatbenchmarks", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
+numpy = "^1.26.4"
+
+[tool.poetry.scripts]
+start-benchmark-service = "maxsatbenchmarks.main:serve"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
