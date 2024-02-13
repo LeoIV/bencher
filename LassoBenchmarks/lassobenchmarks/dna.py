@@ -1,22 +1,42 @@
+import LassoBench
+import numpy as np
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.grcp_service import GRCPService
 
 
-class DNAServiceServicer(GRCPService):
+def eval_lasso(
+        x: np.ndarray,
+        benchmark
+):
+    return benchmark.evaluate(x)
 
-    def eval_lasso(self, x: np.ndarray, benchmark):
-        benchmark.evaluate(x.cpu().numpy().astype(np.double)
+
+benchmark_map = {
+    'lasso-dna'   : lambda
+        _: LassoBench.RealBenchmark(pick_data='dna', mf_opt='discrete_fidelity'),
+    'lasso-simple': lambda
+        _: LassoBench.SyntheticBenchmark(pick_bench='synth_simple'),
+    'lasso-medium': lambda
+        _: LassoBench.SyntheticBenchmark(pick_bench='synth_medium'),
+    'lasso-high'  : lambda
+        _: LassoBench.SyntheticBenchmark(pick_bench='synth_high'),
+    'lasso-hard'  : lambda
+        _: LassoBench.SyntheticBenchmark(pick_bench='synth_hard')
+}
+
+
+class LassoServiceServicer(GRCPService):
 
     def EvaluatePoint(
             self,
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
-        print("Evaluating point")
-        assert request.benchmark == "dna", "Invalid benchmark name"
+        assert request.benchmark in benchmark_map.keys(), "Invalid benchmark name"
         x = request.point.values
+        x = np.array(x)
+        benchmark = benchmark_map[request.benchmark](None)
         result = EvaluationResult(
-            value=sum(x),
+            value=eval_lasso(x, benchmark),
         )
-
         return result

@@ -2,7 +2,7 @@
 name = "lassobenchmarks"
 version = "0.1.0"
 description = ""
-authors = ["Mona Lisa <leonard.papenmeier@posteo.de>"]
+authors = ["Leonard Papenmeier <leonard.papenmeier@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "lassobenchmarks", from = "." }
