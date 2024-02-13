@@ -14,7 +14,7 @@ bencherscaffold = { git = "https://LeoIV:github_pat_11ADJZ5EY09jkhcGW2lxnN_dWpZg
 numpy = "^1.26.4"
 
 [tool.poetry.scripts]
-mopta08-benchmarks = "mopta08benchmark.main:serve"
+start-benchmark-service = "mopta08benchmark.main:serve"
 
 [build-system]
 requires = ["poetry-core"]
