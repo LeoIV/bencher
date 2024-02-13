@@ -21,8 +21,7 @@ url = "https://download.pytorch.org/whl/cpu"
 priority = "explicit"
 
 [tool.poetry.scripts]
-lasso-benchmarks = "lassobenchmarks.dna:serve"
-
+lasso-benchmarks = "lassobenchmarks.main:serve"
 
 [build-system]
 requires = ["poetry-core"]
