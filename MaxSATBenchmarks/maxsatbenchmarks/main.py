@@ -69,7 +69,14 @@ class MaxSATServiceServicer(GRCPService):
 
         clauses = np.zeros((len(wcnf.clauses), dim), dtype=np.bool_)
 
-        return weights, total_weight, np.array(wcnf.get_clause_idxs(), dtype=np.int32), clauses
+        clause_idxs = []
+
+        for i, clause in enumerate(wcnf.clauses):
+            _clause_idxs = np.abs(np.array(clause)) - 1
+            clauses[i, _clause_idxs] = np.array(clause) > 0
+            clause_idxs.append(_clause_idxs)
+
+        return weights, total_weight, clause_idxs, clauses
 
     def EvaluatePoint(
             self,
@@ -131,3 +138,6 @@ def serve():
     logging.basicConfig()
     lasso = MaxSATServiceServicer()
     lasso.serve()
+
+if __name__ == '__main__':
+    serve()
