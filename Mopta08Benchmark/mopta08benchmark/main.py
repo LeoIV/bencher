@@ -72,7 +72,7 @@ class Mopta08ServiceServicer(GRCPService):
         # write input to file in dir
         with open(os.path.join(self.directory_name, "input.txt"), "w+") as tmp_file:
             for _x in x:
-                tmp_file.write(f"{_x.detach().cpu().numpy()}\n")
+                tmp_file.write(f"{_x}\n")
         # pass directory as working directory to process
         popen = subprocess.Popen(
             self._mopta_exectutable,
