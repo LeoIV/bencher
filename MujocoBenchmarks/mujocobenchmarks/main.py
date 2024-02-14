@@ -27,7 +27,7 @@ class MujocoServiceServicer(GRCPService):
     def __init__(
             self
     ):
-        super().__init__(port=50053, n_cores=1)
+        super().__init__(port=50057, n_cores=1)
 
     def EvaluatePoint(
             self,
