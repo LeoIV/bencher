@@ -23,7 +23,15 @@ benchmark_map = {
     'lasso-high'  : lambda
         _: LassoBench.SyntheticBenchmark(pick_bench='synt_high'),
     'lasso-hard'  : lambda
-        _: LassoBench.SyntheticBenchmark(pick_bench='synt_hard')
+        _: LassoBench.SyntheticBenchmark(pick_bench='synt_hard'),
+    'lasso-leukemia': lambda
+        _: LassoBench.RealBenchmark(pick_data='leukemia', mf_opt='discrete_fidelity'),
+    'lasso-rcv1': lambda
+        _: LassoBench.RealBenchmark(pick_data='rcv1', mf_opt='discrete_fidelity'),
+    'lasso-diabetes': lambda
+        _: LassoBench.RealBenchmark(pick_data='diabetes', mf_opt='discrete_fidelity'),
+    'lasso-breastcancer': lambda
+        _: LassoBench.RealBenchmark(pick_data='breast_cancer', mf_opt='discrete_fidelity'),
 }
 
 
