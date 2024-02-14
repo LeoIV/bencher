@@ -36,7 +36,7 @@ class MujocoServiceServicer(GRCPService):
     ) -> EvaluationResult:
         assert request.benchmark in func_factory_map.keys(), "Invalid benchmark name"
         x = request.point.values
-        x = np.array(x).reshape(-1)
+        x = np.array(x).reshape(1, -1)
         func_factory = func_factory_map[request.benchmark](None)
         result = EvaluationResult(
             value=func_factory(x)[0].squeeze(),
