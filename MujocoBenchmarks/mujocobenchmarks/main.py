@@ -39,7 +39,7 @@ class MujocoServiceServicer(GRCPService):
         x = np.array(x).reshape(1, -1)
         func_factory = func_factory_map[request.benchmark](None)
         result = EvaluationResult(
-            value=func_factory(x)[0].squeeze(),
+            value=float(func_factory(x)[0].squeeze()),
         )
         return result
 
