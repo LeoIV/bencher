@@ -17,13 +17,13 @@ benchmark_map = {
     'lasso-dna'   : lambda
         _: LassoBench.RealBenchmark(pick_data='dna', mf_opt='discrete_fidelity'),
     'lasso-simple': lambda
-        _: LassoBench.SyntheticBenchmark(pick_bench='synth_simple'),
+        _: LassoBench.SyntheticBenchmark(pick_bench='synt_simple'),
     'lasso-medium': lambda
-        _: LassoBench.SyntheticBenchmark(pick_bench='synth_medium'),
+        _: LassoBench.SyntheticBenchmark(pick_bench='synt_medium'),
     'lasso-high'  : lambda
-        _: LassoBench.SyntheticBenchmark(pick_bench='synth_high'),
+        _: LassoBench.SyntheticBenchmark(pick_bench='synt_high'),
     'lasso-hard'  : lambda
-        _: LassoBench.SyntheticBenchmark(pick_bench='synth_hard')
+        _: LassoBench.SyntheticBenchmark(pick_bench='synt_hard')
 }
 
 
