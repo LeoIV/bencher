@@ -65,7 +65,7 @@ protobuf = "^4.25.2"
 type = "git"
 url = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git"
 reference = "master"
-resolved_reference = "bba766d1012fe0a59e1962557c4e806ac6dc6f46"
+resolved_reference = "61636ae4575683b1c06dc917b56f11e132ec2725"
 
 [[package]]
 name = "botorch"
