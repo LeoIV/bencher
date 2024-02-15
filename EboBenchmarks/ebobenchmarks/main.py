@@ -45,10 +45,16 @@ class EboServiceServicer(GRCPService):
         assert request.benchmark in ['robotpushing', 'rover'], "Invalid benchmark name"
         x = request.point.values
         x = np.array(x).squeeze()
+
         if request.benchmark == 'robotpushing':
+            lb = self._pr.xmin
+            ub = self._pr.xmax
+            # x is in [0, 1] space, so we need to scale it to the domain
+            x = lb + (ub - lb) * x
             assert x.shape[0] == 14, "Invalid input shape"
             rewards = -self._pr(x)
         else:
+            # bounds are [0, 1] for the rover, so we don't need to scale
             assert x.shape[0] == 60, "Invalid input shape"
             rewards = -self._domain(x)
         result = EvaluationResult(
@@ -59,5 +65,5 @@ class EboServiceServicer(GRCPService):
 
 def serve():
     logging.basicConfig()
-    lasso = EboServiceServicer()
-    lasso.serve()
+    ebo = EboServiceServicer()
+    ebo.serve()

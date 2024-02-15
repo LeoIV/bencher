@@ -29,7 +29,45 @@ def download_mopta_executable(
 
 
 class Mopta08ServiceServicer(GRCPService):
+    """
+    Mopta08ServiceServicer
 
+    This class is a gRPC service for evaluating points against the Mopta08 benchmark. It provides methods for evaluating points and returning the evaluation results.
+
+    Attributes:
+        sysarch (int): The system architecture (32 or 64) based on the maximum size. Default is 64.
+        machine (str): The machine on which the service is running. Default is the lowercase machine name.
+        _mopta_exectutable (str): The name of the mopta08 executable file based on the system architecture and machine.
+                                  This will be used for evaluating points.
+        directory_file_descriptor (TemporaryDirectory): A temporary directory object for storing input and output files.
+        directory_name (str): The name of the temporary directory.
+
+    Methods:
+        __init__():
+            Initializes the Mopta08ServiceServicer object with the gRPC service port and number of cores.
+            Sets the sysarch attribute based on the system's maximum size.
+            Sets the machine attribute based on the lowercase machine name.
+            Sets the _mopta_exectutable attribute based on the machine and sysarch.
+            Downloads the mopta executable file if it does not exist.
+            Sets the _mopta_exectutable attribute to the full path of the executable file.
+            Creates a temporary directory for storing input and output files.
+
+        EvaluatePoint(request: BenchmarkRequest, context) -> EvaluationResult:
+            Evaluates the given point against the Mopta08 benchmark.
+            :param request: The benchmark request object containing the point to evaluate.
+            :type request: BenchmarkRequest
+            :param context: The evaluation context.
+            :type context: Any
+            :return: The evaluation result.
+            :rtype: EvaluationResult
+
+        eval(x: np.ndarray) -> float:
+            Evaluates the function with the given input.
+            :param x: Input array.
+            :type x: np.ndarray
+            :return: The evaluated result.
+            :rtype: float
+    """
     def __init__(
             self
     ):
@@ -66,9 +104,24 @@ class Mopta08ServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
+        """
+
+        .. function:: EvaluatePoint(self, request: BenchmarkRequest, context) -> EvaluationResult
+
+            Evaluate the given point against the specified benchmark.
+
+            :param request: The benchmark request object containing the point to evaluate.
+            :type request: BenchmarkRequest
+            :param context: The evaluation context.
+            :type context: Any
+            :return: The evaluation result.
+            :rtype: EvaluationResult
+
+        """
         assert request.benchmark == 'mopta08'
         x = request.point.values
         x = np.array(x)
+        # mopta is in [0, 1]^n so we don't need to scale
         result = EvaluationResult(
             value=self.eval(x)
         )
@@ -115,5 +168,5 @@ class Mopta08ServiceServicer(GRCPService):
 
 def serve():
     logging.basicConfig()
-    lasso = Mopta08ServiceServicer()
-    lasso.serve()
+    mopta = Mopta08ServiceServicer()
+    mopta.serve()

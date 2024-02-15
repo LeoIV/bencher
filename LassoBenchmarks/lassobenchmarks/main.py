@@ -14,21 +14,21 @@ def eval_lasso(
 
 
 benchmark_map = {
-    'lasso-dna'   : lambda
+    'lasso-dna'         : lambda
         _: LassoBench.RealBenchmark(pick_data='dna', mf_opt='discrete_fidelity'),
-    'lasso-simple': lambda
+    'lasso-simple'      : lambda
         _: LassoBench.SyntheticBenchmark(pick_bench='synt_simple'),
-    'lasso-medium': lambda
+    'lasso-medium'      : lambda
         _: LassoBench.SyntheticBenchmark(pick_bench='synt_medium'),
-    'lasso-high'  : lambda
+    'lasso-high'        : lambda
         _: LassoBench.SyntheticBenchmark(pick_bench='synt_high'),
-    'lasso-hard'  : lambda
+    'lasso-hard'        : lambda
         _: LassoBench.SyntheticBenchmark(pick_bench='synt_hard'),
-    'lasso-leukemia': lambda
+    'lasso-leukemia'    : lambda
         _: LassoBench.RealBenchmark(pick_data='leukemia', mf_opt='discrete_fidelity'),
-    'lasso-rcv1': lambda
+    'lasso-rcv1'        : lambda
         _: LassoBench.RealBenchmark(pick_data='rcv1', mf_opt='discrete_fidelity'),
-    'lasso-diabetes': lambda
+    'lasso-diabetes'    : lambda
         _: LassoBench.RealBenchmark(pick_data='diabetes', mf_opt='discrete_fidelity'),
     'lasso-breastcancer': lambda
         _: LassoBench.RealBenchmark(pick_data='breast_cancer', mf_opt='discrete_fidelity'),
@@ -50,6 +50,8 @@ class LassoServiceServicer(GRCPService):
         assert request.benchmark in benchmark_map.keys(), "Invalid benchmark name"
         x = request.point.values
         x = np.array(x)
+        # lasso benchmarks are in [-1, 1] while x is in [0, 1], so we need to scale it
+        x = 2 * x - 1
         benchmark = benchmark_map[request.benchmark](None)
         result = EvaluationResult(
             value=eval_lasso(x, benchmark),

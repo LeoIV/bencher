@@ -1,11 +1,10 @@
 import logging
+import numpy as np
 import os
 import tempfile
-from functools import lru_cache
-
-import numpy as np
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.grcp_service import GRCPService
+from functools import lru_cache
 
 from maxsatbenchmarks.data_loading import download_maxsat60_data, download_maxsat125_data
 from maxsatbenchmarks.wcnf import WCNF
@@ -34,7 +33,48 @@ data_loader_map = {
 }
 
 
+def eval(
+        x: np.ndarray,
+        weights: np.ndarray,
+        total_weight: float,
+        clauseidxs: np.ndarray,
+        clauses: np.ndarray,
+        negative_weights: bool
+
+) -> float:
+    """
+    Evaluate the function with the given input.
+
+    :param x: Input array.
+    :type x: np.ndarray
+    :return: The evaluated result.
+    :rtype: float
+    """
+    x = x.squeeze()
+    assert x.ndim == 1
+    weights_sum = np.sum(
+        weights
+        * [
+            np.any(np.equal(x[ci], clauses[i, ci]))
+            for i, ci in enumerate(clauseidxs)
+        ]
+    )
+    if negative_weights:
+        # weights of unsatisfied clauses
+        weight_diff = total_weight - weights_sum
+        fx = weight_diff
+    else:
+        fx = -weights_sum
+    return fx
+
+
 class MaxSATServiceServicer(GRCPService):
+    """
+    MaxSATServiceServicer class for maximum satisfiability problem service.
+
+    This class provides methods for evaluating and solving maximum satisfiability problems.
+
+    """
 
     def __init__(
             self
@@ -46,6 +86,15 @@ class MaxSATServiceServicer(GRCPService):
             self,
             benchmark: str
     ) -> (np.ndarray, float, np.ndarray, np.ndarray):
+        """
+        :param benchmark: The name of the benchmark to retrieve the data for.
+        :return: A tuple containing four objects:
+            - weights: An array of weights for each variable in the benchmark.
+            - total_weight: The sum of all the weights.
+            - clause_idxs: An array of indices indicating which variables are present in each clause.
+            - clauses: A matrix representing the clauses where each row corresponds to a clause and each column corresponds to a variable.
+
+        """
         assert benchmark in filename_map.keys(), "Invalid benchmark name"
         fname = filename_map[benchmark]
         dataloader = data_loader_map[benchmark]
@@ -83,9 +132,16 @@ class MaxSATServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
+        """
+        :param request: Instance of the BenchmarkRequest class, containing the benchmark name and point values.
+        :param context: The context in which the evaluation is being performed.
+        :return: Instance of the EvaluationResult class, containing the evaluated value.
+        """
         assert request.benchmark in filename_map.keys(), "Invalid benchmark name"
         x = request.point.values
         x = np.array(x)
+        # check that x is binary
+        assert np.all(np.logical_or(x == 0, x == 1)), "Input must be binary"
 
         weights, total_weight, clauseidxs, clauses = self.get_wcnf_weights_totalweight_clauseidxs_clauses(
             request.benchmark
@@ -94,50 +150,16 @@ class MaxSATServiceServicer(GRCPService):
         negative_weights = negative_weights_map[request.benchmark]
 
         result = EvaluationResult(
-            value=self.eval(x, weights, total_weight, clauseidxs, clauses, negative_weights)
+            value=eval(x, weights, total_weight, clauseidxs, clauses, negative_weights)
         )
         return result
-
-    def eval(
-            self,
-            x: np.ndarray,
-            weights: np.ndarray,
-            total_weight: float,
-            clauseidxs: np.ndarray,
-            clauses: np.ndarray,
-            negative_weights: bool
-
-    ) -> float:
-        """
-        Evaluate the function with the given input.
-
-        :param x: Input array.
-        :type x: np.ndarray
-        :return: The evaluated result.
-        :rtype: float
-        """
-        x = x.squeeze()
-        assert x.ndim == 1
-        weights_sum = np.sum(
-            weights
-            * [
-                np.any(np.equal(x[ci], clauses[i, ci]))
-                for i, ci in enumerate(clauseidxs)
-            ]
-        )
-        if negative_weights:
-            # weights of unsatisfied clauses
-            weight_diff = total_weight - weights_sum
-            fx = weight_diff
-        else:
-            fx = -weights_sum
-        return fx
 
 
 def serve():
     logging.basicConfig()
-    lasso = MaxSATServiceServicer()
-    lasso.serve()
+    maxsat = MaxSATServiceServicer()
+    maxsat.serve()
+
 
 if __name__ == '__main__':
     serve()

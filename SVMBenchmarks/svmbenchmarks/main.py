@@ -13,13 +13,76 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVR
 
 
-class SvmServiceServicer(GRCPService):
+def download_slice_localization_data(
+):
+    """
+    Downloads the slice localization data from a specified URL and saves it locally.
 
+    :return: None
+    """
+    if not os.path.exists(os.path.join(Path(__file__).parent, "slice_localization_data.csv")):
+        url = "http://mopta-executables.s3-website.eu-north-1.amazonaws.com/slice_localization_data.csv.xz"
+        response = requests.get(url)
+        # unpack the data
+        with lzma.open(io.BytesIO(response.content)) as f:
+            with open(os.path.join(Path(__file__).parent, "slice_localization_data.csv"), "wb") as out:
+                out.write(f.read())
+
+
+def _load_data():
+    """
+    _load_data()
+    -----------
+
+    This method is used to load data for CT slice localization. It downloads the data if necessary and processes it for further use.
+
+    :return: A tuple containing the features (X) and labels (y) of the CT data. X is a numpy array of shape (n_samples, n_features) and y is a numpy array of shape (n_samples,). The features
+    * and labels are scaled using MinMaxScaler.
+
+    Example usage:
+
+        >>> X, y = _load_data()
+    """
+    download_slice_localization_data()
+    data_folder = Path(__file__).parent
+    if not os.path.exists(os.path.join(data_folder, "CT_slice_X.npy")):
+        data = np.genfromtxt(
+            os.path.join(data_folder, "slice_localization_data.csv"),
+            delimiter=","
+        )
+        X = data[:, :385]
+        y = data[:, -1]
+        np.save(os.path.join(data_folder, "CT_slice_X.npy"), X)
+        np.save(os.path.join(data_folder, "CT_slice_y.npy"), y)
+    X = np.load(os.path.join(data_folder, "CT_slice_X.npy"))
+    y = np.load(os.path.join(data_folder, "CT_slice_y.npy"))
+    X = MinMaxScaler().fit_transform(X)
+    y = MinMaxScaler().fit_transform(y.reshape(-1, 1)).squeeze()
+    return X, y
+
+
+class SvmServiceServicer(GRCPService):
+    """
+    This class is a GRCP service for SVM evaluation.
+
+    Attributes:
+        - X (numpy.ndarray): Input data for training.
+        - y (numpy.ndarray): Target values for training.
+        - _X_train (numpy.ndarray): Input data for training, subset of X.
+        - _X_test (numpy.ndarray): Input data for testing, subset of X.
+        - _y_train (numpy.ndarray): Target values for training, subset of y.
+        - _y_test (numpy.ndarray): Target values for testing, subset of y.
+
+    Methods:
+        - __init__(self): Initializes the SVM service.
+        - EvaluatePoint(self, request: BenchmarkRequest, context) -> EvaluationResult: Evaluates a point using SVM.
+
+    """
     def __init__(
             self
     ):
         super().__init__(port=50058, n_cores=1)
-        self.X, self.y = self._load_data()
+        self.X, self.y = _load_data()
         idxs = RandomState(388).choice(np.arange(len(self.X)), min(10000, len(self.X)), replace=False)
         half = len(idxs) // 2
         self._X_train = self.X[idxs[:half]]
@@ -32,6 +95,19 @@ class SvmServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
+        """
+        EvaluatePoint Method
+
+        :param request: An instance of the BenchmarkRequest class, representing the request to evaluate a point.
+        :param context: The context in which the evaluation is being performed.
+        :return: An instance of the EvaluationResult class, representing the result of the evaluation.
+
+        This method evaluates the given point using an SVM regression model. It first extracts the values from the request's point, and applies transformations to them to calculate the SVM model
+        * parameters. It then fits the SVM regression model using the transformed training data and evaluates it against the transformed test data. The evaluation result, represented as the
+        * root mean square error (RMSE), is returned as an instance of the EvaluationResult class.
+
+        Please note that this method assumes that the benchmark name in the request is "svm". If the benchmark name is different, an assertion error will occur.
+        """
         assert request.benchmark == "svm", "Invalid benchmark name"
         x = request.point.values
         x = np.array(x).squeeze()
@@ -49,39 +125,8 @@ class SvmServiceServicer(GRCPService):
         )
         return result
 
-    def _load_data(
-            self,
-    ):
-        self.download_slice_localization_data()
-        data_folder = Path(__file__).parent
-        if not os.path.exists(os.path.join(data_folder, "CT_slice_X.npy")):
-            data = np.genfromtxt(
-                os.path.join(data_folder, "slice_localization_data.csv"),
-                delimiter=","
-            )
-            X = data[:, :385]
-            y = data[:, -1]
-            np.save(os.path.join(data_folder, "CT_slice_X.npy"), X)
-            np.save(os.path.join(data_folder, "CT_slice_y.npy"), y)
-        X = np.load(os.path.join(data_folder, "CT_slice_X.npy"))
-        y = np.load(os.path.join(data_folder, "CT_slice_y.npy"))
-        X = MinMaxScaler().fit_transform(X)
-        y = MinMaxScaler().fit_transform(y.reshape(-1, 1)).squeeze()
-        return X, y
-
-    def download_slice_localization_data(
-            self,
-    ):
-        if not os.path.exists(os.path.join(Path(__file__).parent, "slice_localization_data.csv")):
-            url = "http://mopta-executables.s3-website.eu-north-1.amazonaws.com/slice_localization_data.csv.xz"
-            response = requests.get(url)
-            # unpack the data
-            with lzma.open(io.BytesIO(response.content)) as f:
-                with open(os.path.join(Path(__file__).parent, "slice_localization_data.csv"), "wb") as out:
-                    out.write(f.read())
-
 
 def serve():
     logging.basicConfig()
-    lasso = SvmServiceServicer()
-    lasso.serve()
+    svm = SvmServiceServicer()
+    svm.serve()

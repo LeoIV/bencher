@@ -21,6 +21,15 @@ func_factory_map = {
         _: func_factories["humanoid"].make_object(),
 }
 
+benchmark_bounds = {
+    'mujoco-ant'        : (-1, 1),
+    'mujoco-hopper'     : (-1.4, 1.4),
+    'mujoco-walker'     : (-1.8, 0.9),
+    'mujoco-halfcheetah': (-1, 1),
+    'mujoco-swimmer'    : (-1, 1),
+    'mujoco-humanoid'   : (-1, 1),
+}
+
 
 class MujocoServiceServicer(GRCPService):
 
@@ -37,6 +46,9 @@ class MujocoServiceServicer(GRCPService):
         assert request.benchmark in func_factory_map.keys(), "Invalid benchmark name"
         x = request.point.values
         x = np.array(x).reshape(1, -1)
+        # x is in [0, 1] space, we need to map it to the benchmark space
+        lb, ub = benchmark_bounds[request.benchmark]
+        x = lb + (ub - lb) * x
         func_factory = func_factory_map[request.benchmark](None)
         result = EvaluationResult(
             value=float(func_factory(x)[0].squeeze()),
