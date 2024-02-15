@@ -65,8 +65,7 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
         """
         benchmark_name = request.benchmark
 
-        assert benchmark_name in self.stubs, f"Invalid benchmark name {benchmark_name}"
+        assert benchmark_name in self.stubs, f"Invalid benchmark name {benchmark_name}, available: {list(self.stubs.keys())}"
         stub = self.stubs[benchmark_name]
         response = stub.EvaluatePoint(request)
         return response
-

@@ -55,7 +55,7 @@
     "port": 50056,
     "dimensions": 60
   },
-  "mujo-ant": {
+  "mujoco-ant": {
     "port": 50057,
     "dimensions": 888
   },

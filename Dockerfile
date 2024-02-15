@@ -31,12 +31,12 @@ RUN wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoc
 RUN curl -sSL https://install.python-poetry.org | python3.11 -
 # Install Pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
-# Clone BencherBenchmarks repository
+# Clone bencher repository
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/BencherBenchmarks.git
+RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git
 
 # Install benchmarks
-RUN for dir in /opt/BencherBenchmarks/*; do \
+RUN for dir in /opt/bencher/*; do \
         if [ -d "$dir" ]; then \
             if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
