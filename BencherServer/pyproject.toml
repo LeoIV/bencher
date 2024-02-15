@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "bencherserver"
+version = "0.1.0"
+description = ""
+authors = ["Leonard Papenmeier <leonard.papenmeier@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "bencherserver" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+grpcio = "^1.60.1"
+protobuf = "^4.25.2"
+bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
+
+[tool.poetry.scripts]
+start-benchmark-service = "bencherserver.main:serve"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
