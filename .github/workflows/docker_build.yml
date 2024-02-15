@@ -1,6 +1,6 @@
 name: Docker Build
 
-on: [push]
+on: [ push ]
 
 jobs:
   build:
@@ -9,6 +9,35 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        path: bencher
 
       - name: Build Docker image
-        run: docker build -t bencher .
+        run: |
+          cd bencher
+          docker build -t bencher .
+
+      - name: Run Docker container in background
+        run: |
+          docker run -d -p 50051:50051 bencher
+
+      - name: Checkout bencherclient code
+        uses: actions/checkout@v4
+        with:
+          repository: 'bencherclient'
+          ref: 'master'
+          token: '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'
+          path: bencherclient
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install dependencies
+        run: |
+          cd bencherclient
+          poetry install
+
+      - name: Run bencherclient
+        run: |
+          cd bencherclient
+          poetry run python -m bencherclient -b robotpushing -p 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
