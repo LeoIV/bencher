@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd bencherclient
-          poetry install
+          poetry install --with dev
 
       - name: Run bencherclient
         run: |
