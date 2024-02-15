@@ -7,9 +7,9 @@ export POETRY_HOME=/opt/poetry
 export PATH="/opt/poetry/bin:$PATH"
 export POETRY_VIRTUALENVS_IN_PROJECT=true
 
-# loop over all dirs in /opt/BencherBenchmarks and execute poetry run start-benchmark-service for each
+# loop over all dirs in /opt/bencher and execute poetry run start-benchmark-service for each
 # this also starts the coordinating server
-for dir in /opt/BencherBenchmarks/*; do
+for dir in /opt/bencher/*; do
   echo "Checking $dir"
   if [ -d "$dir" ]; then
       echo "Starting benchmark service for $dir"
