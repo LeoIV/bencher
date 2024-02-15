@@ -1,12 +1,11 @@
-from argparse import ArgumentParser
-
-import os
 from concurrent.futures import ThreadPoolExecutor
 
 import grpc
+import os
+from argparse import ArgumentParser
 from bencherscaffold import bencher_pb2_grpc
 
-from bencherserver import BencherServer
+from bencherserver.server import BencherServer
 
 
 def serve():
