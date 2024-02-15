@@ -23,6 +23,8 @@ def download_mopta_executable(
 
         with open(os.path.join(Path(__file__).parent, executable_name), "wb") as file:
             file.write(response.content)
+        # make executable
+        os.chmod(os.path.join(Path(__file__).parent, executable_name), 0o755)
         logging.info(f"Downloaded {executable_name}")
 
 
