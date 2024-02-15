@@ -1,0 +1,127 @@
+Bootstrap: docker
+From: python:3.11-slim
+Stage: build
+
+%environment
+    export LANG=C.UTF-8
+    export PATH="/root/.local/bin:$PATH"
+    export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
+    export POETRY_HOME=/opt/poetry
+    export POETRY_VIRTUALENVS_IN_PROJECT=true
+    export MUJOCO_PY_MUJOCO_PATH=/opt/mujoco210
+
+%post
+    PROGRAMS="git curl gcc g++ build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget \
+    curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl swig \
+    libglew-dev patchelf libosmesa6-dev libgl1-mesa-glx wget"
+    apt update -y
+    apt install -y $PROGRAMS
+
+    cd /opt
+    export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
+    export POETRY_HOME=/opt/poetry
+    export PATH="/opt/poetry/bin:$PATH"
+    export POETRY_VIRTUALENVS_IN_PROJECT=true
+    export MUJOCO_PY_MUJOCO_PATH=/opt/mujoco210
+    export LD_LIBRARY_PATH=${MUJOCO_PY_MUJOCO_PATH}/bin:/bin/usr/local/nvidia/lib64:/usr/lib/nvidia:$LD_LIBRARY_PATH
+    export PYENV_ROOT="/opt/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    export PATH="$PYENV_ROOT/shims:$PATH"
+
+    ####################
+    # CONFIGURE MUJOCO #
+    ####################
+
+    wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+    tar -xf mujoco210-linux-x86_64.tar.gz
+    rm mujoco210-linux-x86_64.tar.gz
+    # remove /tmp/mujocopy-buildlock
+    rm -rf /tmp/mujocopy-buildlock
+    #mkdir /tmp/mujocopy-buildlock || true
+    #chmod 777 /tmp/mujocopy-buildlock
+
+    ##################
+    # INSTALL POETRY #
+    ##################
+
+    curl -sSL https://install.python-poetry.org | python3.11 -
+
+
+    #################
+    # INSTALL PYENV #
+    #################
+
+    cd /opt
+    git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
+
+    ######################
+    # INSTALL BENCHMARKS #
+    ######################
+
+    cd /opt
+
+    git clone --depth 1 https://LeoIV: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@github.com/LeoIV/BencherBenchmarks.git
+
+    for dir in /opt/BencherBenchmarks/*; do
+        if [ -d "$dir" ]; then
+            # check if .python-version file exists, and install with pyenv if it does
+            if [ -f "$dir/.python-version" ]; then
+                echo "Installing python version for $dir"
+                cd $dir
+                # try to install, print 'already installed' if it fails
+                pyenv install $(cat .python-version) || echo "pyenv already installed version $(cat .python-version)"
+                echo $PYENV_VERSION
+                poetry env use $(cat .python-version)
+            fi
+            echo "Installing benchmark service for $dir"
+            cd $dir
+            #POETRY_INSTALLER_MAX_WORKERS=1 poetry install -v
+            poetry install -v
+            poetry env info
+            # reset poetry env if .python-version file exists
+            if [ -f "$dir/.python-version" ]; then
+                poetry env use system
+            fi
+        fi
+    done
+
+    ###########
+    # CLEANUP #
+    ###########
+
+    # remove build dependencies
+    apt remove -y $PROGRAMS
+    apt autoremove -y
+
+    # clean up
+    rm -rf /var/lib/apt/lists/*
+    rm -rf /root/.cache/pip/*
+    rm -rf /root/.cache/pypoetry/*
+
+%startscript
+    echo "Container was started"
+
+    export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
+    export POETRY_HOME=/opt/poetry
+    export PATH="/opt/poetry/bin:$PATH"
+    export POETRY_VIRTUALENVS_IN_PROJECT=true
+
+    # loop over all dirs in /opt/BencherBenchmarks and execute poetry run start-benchmark-service for each
+    for dir in /opt/BencherBenchmarks/*; do
+        if [ -d "$dir" ]; then
+            echo "Starting benchmark service for $dir"
+            cd $dir
+            bash -c "PATH='/opt/poetry/bin:$PATH' poetry run start-benchmark-service &"
+        fi
+    done
+
+%runscript
+    echo "Container was created"
+    echo "Arguments received: $*"
+
+    export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
+    export POETRY_HOME=/opt/poetry
+    export PATH="/opt/poetry/bin:$PATH"
+    export POETRY_VIRTUALENVS_IN_PROJECT=true
+
+    bash -c "PATH='/opt/poetry/bin:$PATH' cd /opt/bencherclient && PATH='/opt/poetry/bin:$PATH' poetry run $*"
