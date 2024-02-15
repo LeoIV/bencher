@@ -1,4 +1,3 @@
-# Use python:3.11-slim as base image
 FROM python:3.11-slim as build
 
 # Set environment variables
@@ -33,6 +32,7 @@ RUN curl -sSL https://install.python-poetry.org | python3.11 -
 # Install Pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
 # Clone BencherBenchmarks repository
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/BencherBenchmarks.git
 
 # Install benchmarks
