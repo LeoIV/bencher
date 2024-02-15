@@ -14,9 +14,9 @@ def download_mopta_executable(
         executable_name: str
 ):
     if not Path(__file__).parent.joinpath(executable_name).exists():
-        logging.info(f"{executable_name} not found. Downloading...")
+        print(f"{executable_name} not found. Downloading...")
         url = f"http://mopta-executables.s3-website.eu-north-1.amazonaws.com/{executable_name}"
-        logging.info(f"Downloading {url}")
+        print(f"Downloading {url}")
 
         import requests
         response = requests.get(url, verify=False)
@@ -25,7 +25,7 @@ def download_mopta_executable(
             file.write(response.content)
         # make executable
         os.chmod(os.path.join(Path(__file__).parent, executable_name), 0o755)
-        logging.info(f"Downloaded {executable_name}")
+        print(f"Downloaded {executable_name}")
 
 
 class Mopta08ServiceServicer(GRCPService):

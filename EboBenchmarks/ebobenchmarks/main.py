@@ -47,8 +47,8 @@ class EboServiceServicer(GRCPService):
         x = np.array(x).squeeze()
 
         if request.benchmark == 'robotpushing':
-            lb = self._pr.xmin
-            ub = self._pr.xmax
+            lb = np.array(self._pr.xmin)
+            ub = np.array(self._pr.xmax)
             # x is in [0, 1] space, so we need to scale it to the domain
             x = lb + (ub - lb) * x
             assert x.shape[0] == 14, "Invalid input shape"

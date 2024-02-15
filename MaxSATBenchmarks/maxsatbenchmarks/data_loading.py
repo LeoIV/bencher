@@ -7,10 +7,10 @@ def download_maxsat60_data(
         dirname: str
 ):
     if not pathlib.Path(os.path.join(dirname, "frb10-6-4.wcnf")).exists():
-        logging.info("frb10-6-4.wcnf not found. Downloading...")
+        print("frb10-6-4.wcnf not found. Downloading...")
 
         url = "http://bounce-resources.s3-website-us-east-1.amazonaws.com/wms_crafted.tgz"
-        logging.info(f"Downloading {url}")
+        print(f"Downloading {url}")
 
         import requests
         response = requests.get(url, verify=False)
@@ -33,7 +33,7 @@ def download_maxsat60_data(
             shutil.rmtree(os.path.join(dirname, "wms_crafted"))
         # delete .tgz file
         pathlib.Path(os.path.join(dirname, "wms_crafted.tgz")).unlink()
-        logging.info("Data extracted!")
+        print("Data extracted!")
 
 
 def download_maxsat125_data(
@@ -42,13 +42,13 @@ def download_maxsat125_data(
     if not pathlib.Path(
             os.path.join(dirname, "cluster-expansion-IS1_5.0.5.0.0.5_softer_periodic.wcnf")
     ).exists():
-        logging.info(
+        print(
             "cluster-expansion-IS1_5.0.5.0.0.5_softer_periodic.wcnf not found. Downloading..."
         )
         import requests
 
         url = "http://bounce-resources.s3-website-us-east-1.amazonaws.com/mse18-new.zip"
-        logging.info(f"Downloading {url}")
+        print(f"Downloading {url}")
 
         response = requests.get(url, verify=False)
 
@@ -84,4 +84,4 @@ def download_maxsat125_data(
 
         # delete .zip file
         pathlib.Path(os.path.join(dirname, "ce.zip")).unlink()
-        logging.info("Data extracted!")
+        print("Data extracted!")
