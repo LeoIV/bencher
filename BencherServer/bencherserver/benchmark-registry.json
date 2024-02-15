@@ -1,0 +1,82 @@
+{
+  "lasso-dna": {
+    "port": 50053,
+    "dimensions": 180
+  },
+  "lasso-simple": {
+    "port": 50053,
+    "dimensions": 60
+  },
+  "lasso-medium": {
+    "port": 50053,
+    "dimensions": 100
+  },
+  "lasso-high": {
+    "port": 50053,
+    "dimensions": 300
+  },
+  "lasso-hard": {
+    "port": 50053,
+    "dimensions": 1000
+  },
+  "lasso-leukemia": {
+    "port": 50053,
+    "dimensions": 7129
+  },
+  "lasso-rcv1": {
+    "port": 50053,
+    "dimensions": 19959
+  },
+  "lasso-diabetes": {
+    "port": 50053,
+    "dimensions": 8
+  },
+  "lasso-breastcancer": {
+    "port": 50053,
+    "dimensions": 10
+  },
+  "mopta08": {
+    "port": 50054,
+    "dimensions": 124
+  },
+  "maxsat60": {
+    "port": 50055,
+    "dimensions": 60
+  },
+  "maxsat125": {
+    "port": 50055,
+    "dimensions": 125
+  },
+  "robotpushing": {
+    "port": 50056,
+    "dimensions": 14
+  },
+  "rover": {
+    "port": 50056,
+    "dimensions": 60
+  },
+  "mujo-ant": {
+    "port": 50057,
+    "dimensions": 888
+  },
+  "mujoco-hopper": {
+    "port": 50057,
+    "dimensions": 33
+  },
+  "mujoco-walker": {
+    "port": 50057,
+    "dimensions": 102
+  },
+  "mujoco-halfcheetah": {
+    "port": 50057,
+    "dimensions": 102
+  },
+  "mujoco-swimmer": {
+    "port": 50057,
+    "dimensions": 16
+  },
+  "mujoco-humanoid": {
+    "port": 50057,
+    "dimensions": 6392
+  }
+}

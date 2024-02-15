@@ -1,3 +1,4 @@
+import json
 from concurrent.futures import ThreadPoolExecutor
 
 import grpc
@@ -29,50 +30,21 @@ def serve():
     args = argparse.parse_args()
 
     bencher_server = BencherServer()
-    bencher_server.register_stub(
-        [
-            'lasso-dna',
-            'lasso-simple',
-            'lasso-medium',
-            'lasso-high',
-            'lasso-hard'
-            'lasso-leukemia',
-            'lasso-rcv1',
-            'lasso-diabetes',
-            'lasso-breastcancer'
-        ], 50053
-    )
 
-    bencher_server.register_stub(
-        [
-            'mopta08'
-        ], 50054
-    )
+    # load relative to this file
+    benchmark_names_to_properties = json.load(open(os.path.join(os.path.dirname(__file__), 'benchmark-registry.json')))
 
-    bencher_server.register_stub(
-        [
-            'maxsat60',
-            'maxsat125'
-        ], 50055
-    )
+    # structure: {benchmark_name: {port: int, dimensions: int}}
+    ports_to_benchmarks = dict()
 
-    bencher_server.register_stub(
-        [
-            'robotpushing',
-            'rover'
-        ], 50056
-    )
+    for benchmark_name, properties in benchmark_names_to_properties.items():
+        port = properties['port']
+        if port not in ports_to_benchmarks:
+            ports_to_benchmarks[port] = []
+        ports_to_benchmarks[port].append(benchmark_name)
 
-    bencher_server.register_stub(
-        [
-            'mujo-ant',
-            'mujoco-hopper',
-            'mujoco-walker',
-            'mujoco-halfcheetah',
-            'mujoco-swimmer',
-            'mujoco-humanoid'
-        ], 50057
-    )
+    for port, benchmarks in ports_to_benchmarks.items():
+        bencher_server.register_stub(benchmarks, port)
 
     port = str(args.port)
     n_cores = args.cores
