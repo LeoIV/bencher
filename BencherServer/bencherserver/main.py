@@ -32,7 +32,9 @@ def serve():
     bencher_server = BencherServer()
 
     # load relative to this file
-    benchmark_names_to_properties = json.load(open(os.path.join(os.path.dirname(__file__), 'benchmark-registry.json')))
+    benchmark_names_to_properties = json.load(
+        open(os.path.join(os.path.dirname(__file__), 'benchmark-registry.json'), 'r'),
+    )
 
     # structure: {benchmark_name: {port: int, dimensions: int}}
     ports_to_benchmarks = dict()
@@ -44,6 +46,7 @@ def serve():
         ports_to_benchmarks[port].append(benchmark_name)
 
     for port, benchmarks in ports_to_benchmarks.items():
+        print(f"registering {benchmarks} on port {port}")
         bencher_server.register_stub(benchmarks, port)
 
     port = str(args.port)
