@@ -52,11 +52,12 @@ class Mopta08ServiceServicer(GRCPService):
             self._mopta_exectutable = "mopta08_amd64.exe"
         else:
             raise RuntimeError("Machine with this architecture is not supported")
+        download_mopta_executable(self._mopta_exectutable)
 
         self._mopta_exectutable = os.path.join(
             Path(__file__).parent, self._mopta_exectutable
         )
-        download_mopta_executable(self._mopta_exectutable)
+
         self.directory_file_descriptor = tempfile.TemporaryDirectory()
         self.directory_name = self.directory_file_descriptor.name
 
