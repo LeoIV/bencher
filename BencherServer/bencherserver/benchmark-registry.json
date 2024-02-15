@@ -78,5 +78,9 @@
   "mujoco-humanoid": {
     "port": 50057,
     "dimensions": 6392
+  },
+  "svm": {
+    "port": 50058,
+    "dimensions": 388
   }
 }
