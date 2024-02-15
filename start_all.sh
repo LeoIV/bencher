@@ -4,11 +4,11 @@
 # loop over all dirs in /opt/BencherBenchmarks and execute poetry run start-benchmark-service for each
 
 for dir in ./*; do
-    echo $dir
     if [ -d "$dir" ]; then
         echo "Starting benchmark service for $dir"
         cd $dir
         #poetry run start-benchmark-service &
         bash -c "poetry install && poetry run start-benchmark-service &"
+        cd ..
     fi
 done
