@@ -1,14 +1,29 @@
 import logging
+import numpy as np
 import os
 import subprocess
 import sys
 import tempfile
+from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.grcp_service import GRCPService
 from pathlib import Path
 from platform import machine
 
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
-import numpy as np
+
+def download_mopta_executable(
+        executable_name: str
+):
+    if not Path(__file__).parent.joinpath(executable_name).exists():
+        logging.info(f"{executable_name} not found. Downloading...")
+        url = f"http://mopta-executables.s3-website.eu-north-1.amazonaws.com/{executable_name}"
+        logging.info(f"Downloading {url}")
+
+        import requests
+        response = requests.get(url, verify=False)
+
+        with open(os.path.join(Path(__file__).parent, executable_name), "wb") as file:
+            file.write(response.content)
+        logging.info(f"Downloaded {executable_name}")
 
 
 class Mopta08ServiceServicer(GRCPService):
@@ -39,6 +54,7 @@ class Mopta08ServiceServicer(GRCPService):
         self._mopta_exectutable = os.path.join(
             Path(__file__).parent, self._mopta_exectutable
         )
+        download_mopta_executable(self._mopta_exectutable)
         self.directory_file_descriptor = tempfile.TemporaryDirectory()
         self.directory_name = self.directory_file_descriptor.name
 
