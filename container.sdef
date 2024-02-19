@@ -26,7 +26,7 @@ Stage: build
     cd /opt
     git clone https://LeoIV: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@github.com/LeoIV/bencherclient.git
     cd bencherclient
-    poetry install --no-root --no-dev
+    poetry install --no-root --with dev
 
     # remove build dependencies
     apt remove git curl -y
