@@ -9,7 +9,12 @@ Stage: build
     export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
     export POETRY_HOME=/opt/poetry
 
+
 %post
+    echo "Installing dependencies"
+    echo $SINGULARITY_DOCKER_USERNAME
+    echo $SINGULARITY_DOCKER_PASSWORD
+
     rm -rf runs/* || true
     rm *.sif || true
     rm -rf .idea || true
