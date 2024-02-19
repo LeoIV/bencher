@@ -11,8 +11,6 @@ ENV LANG=C.UTF-8 \
     LD_LIBRARY_PATH=/opt/mujoco210/bin:/bin/usr/local/nvidia/lib64:/usr/lib/nvidia:$LD_LIBRARY_PATH
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 ENV PATH $POETRY_HOME/bin:$PATH
-ARG GITHUB_SHA
-ENV GITHUB_SHA ${GITHUB_SHA}
 
 # Install necessary programs
 ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget \
@@ -32,8 +30,9 @@ RUN wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoc
 RUN curl -sSL https://install.python-poetry.org | python3.11 -
 # Install Pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
+# Cachebust
+ARG CACHEBUST=1
 # Clone bencher repository
-ADD $GITHUB_SHA skipcache
 RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git
 
 # Install benchmarks

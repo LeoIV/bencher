@@ -61,7 +61,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            GITHUB_SHA=${{ github.sha }}
+            CACHEBUST=${{ github.sha }}
 
       - name: Run Docker container
         run: |
@@ -105,5 +105,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            GITHUB_SHA=${{ github.sha }}
+            CACHEBUST=${{ github.sha }}
 
