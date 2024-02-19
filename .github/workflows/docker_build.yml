@@ -109,7 +109,7 @@ jobs:
             CACHEBUST=${{ github.sha }}
 
   build-test-singularity:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: build-test-docker
     steps:
       - uses: actions/checkout@v4
@@ -119,11 +119,8 @@ jobs:
         with:
           singularity-version: 3.8.3
       - name: build singularity container
-        env:
-          SINGULARITYENV_SINGULARITY_DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          SINGULARITYENV_SINGULARITY_DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          singularity build --sandbox --fakeroot bencher.sif container.sdef
+          singularity build --sandbox --fakeroot --env SINGULARITY_DOCKER_USERNAME=${{ secrets.DOCKERHUB_USERNAME }},SINGULARITY_DOCKER_PASSWORD=${{ secrets.DOCKERHUB_TOKEN }} bencher.sif container.sdef
           if [ $? -ne 0 ]; then
             echo "Singularity build failed."
             exit 1
