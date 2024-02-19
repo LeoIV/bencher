@@ -119,8 +119,11 @@ jobs:
         with:
           singularity-version: 3.8.3
       - name: build singularity container
+        env:
+          SINGULARITY_DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          SINGULARITY_DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          SINGULARITY_DOCKER_USERNAME=${{ secrets.DOCKERHUB_USERNAME }} SINGULARITY_DOCKER_PASSWORD=${{ secrets.DOCKERHUB_TOKEN }} singularity build --sandbox --fakeroot bencher.sif container.sdef
+          singularity build --sandbox --fakeroot bencher.sif container.sdef
           if [ $? -ne 0 ]; then
             echo "Singularity build failed."
             exit 1
