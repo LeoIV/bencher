@@ -110,7 +110,7 @@ jobs:
 
   build-test-singularity:
     runs-on: ubuntu-20.04
-    #needs: build-test-docker
+    needs: build-test-docker
     steps:
       - uses: actions/checkout@v4
         with:
@@ -134,5 +134,4 @@ jobs:
           apptainer instance start bencher.sif bencher
       - name: run bencherclient
         run: |
-          sleep 10
           apptainer run instance://bencher python /opt/bencherclient/run_all_benchmarks.py
