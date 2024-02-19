@@ -40,12 +40,12 @@ jobs:
       - name: Install dependencies
         run: |
           cd bencherclient
-          poetry install --with dev
+          poetry install --without dev --no-root
 
       - name: Run bencherclient
         run: |
           cd bencherclient
-          poetry run python -m bencherclient -b robotpushing -p 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+          poetry run python3 run_all_benchmarks.py
 
       - name: Push to dockerhub
         run: |
