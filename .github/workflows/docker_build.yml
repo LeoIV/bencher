@@ -134,4 +134,4 @@ jobs:
           apptainer instance start bencher.sif bencher
       - name: run bencherclient
         run: |
-          apptainer run instance://bencher python3 /opt/bencherclient/run_all_benchmarks.py
+          apptainer run instance://bencher python /opt/bencherclient/run_all_benchmarks.py
