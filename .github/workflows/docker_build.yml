@@ -16,9 +16,6 @@ jobs:
         with:
           path: bencher
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -99,7 +96,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: bencher
-          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ env.LATEST_TAG }}
           cache-from: type=gha
