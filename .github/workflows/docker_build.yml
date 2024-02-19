@@ -44,11 +44,13 @@ jobs:
         uses: reproducible-containers/buildkit-cache-dance@v2.1.2
         with:
           cache-source: poetry-build-cache
+          cache-target: /root/.cache/pypoetry
 
       - name: inject pip cache
         uses: reproducible-containers/buildkit-cache-dance@v2.1.2
         with:
           cache-source: pip-build-cache
+          cache-target: /root/.cache/pip
 
       - name: Build and export to Docker
         uses: docker/build-push-action@v5

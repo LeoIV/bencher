@@ -37,8 +37,8 @@ ADD $GITHUB_SHA skipcache
 RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git
 
 # Install benchmarks
-RUN --mount =type=cache,target=/root/.cache/pip \
-    --mount =type=cache,target=/root/.cache/pypoetry \
+RUN --mount=type=cache,target=/root/.cache/pip \
+    --mount=type=cache,target=/root/.cache/pypoetry \
     for dir in /opt/bencher/*; do \
         if [ -d "$dir" ]; then \
             if [ -f "$dir/.python-version" ]; then \
