@@ -115,7 +115,7 @@ jobs:
           singularity-version: 3.8.3
       - name: build singularity container
         run: |
-          singularity build --sandbox --fakeroot bencher.sif singularity_container
+          singularity build --sandbox --fakeroot bencher.sif container.sdef
           if [ $? -ne 0 ]; then
             echo "Singularity build failed."
             exit 1
