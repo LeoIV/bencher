@@ -61,7 +61,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd bencherclient
-          poetry install --without dev --no-root
+          poetry install --with dev --no-root
 
       - name: Run bencherclient
         run: |
