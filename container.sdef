@@ -44,5 +44,4 @@ Stage: build
 %runscript
     echo "Container was created"
     echo "Arguments received: $*"
-    sleep 5
     bash -c "PATH='/opt/poetry/bin:$PATH' cd /opt/bencherclient && PATH='/opt/poetry/bin:$PATH' poetry run $*"
