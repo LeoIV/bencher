@@ -22,16 +22,17 @@ jobs:
           docker run -d -p 50051:50051 bencher
 
       - name: Checkout bencherclient code
-        uses: |
-          actions/checkout@v4
-          actions/setup-python@v5
-          with:
-            python-version: '3.10'
+        uses: actions/checkout@v4
         with:
           repository: 'LeoIV/bencherclient'
           ref: 'master'
           token: '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'
           path: bencherclient
+
+      - name: Checkout python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
