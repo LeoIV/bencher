@@ -2,7 +2,7 @@ import io
 import logging
 import lzma
 import os
-from pathlib import Path
+import tempfile
 
 import numpy as np
 import requests
@@ -12,20 +12,21 @@ from numpy.random import RandomState
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVR
 
+directory_file_descriptor = tempfile.TemporaryDirectory()
+directory_name = directory_file_descriptor.name
 
-def download_slice_localization_data(
-):
+def download_slice_localization_data():
     """
     Downloads the slice localization data from a specified URL and saves it locally.
 
     :return: None
     """
-    if not os.path.exists(os.path.join(Path(__file__).parent, "slice_localization_data.csv")):
+    if not os.path.exists(os.path.join(directory_name, "slice_localization_data.csv")):
         url = "http://mopta-executables.s3-website.eu-north-1.amazonaws.com/slice_localization_data.csv.xz"
         response = requests.get(url)
         # unpack the data
         with lzma.open(io.BytesIO(response.content)) as f:
-            with open(os.path.join(Path(__file__).parent, "slice_localization_data.csv"), "wb") as out:
+            with open(os.path.join(directory_name, "slice_localization_data.csv"), "wb") as out:
                 out.write(f.read())
 
 
@@ -44,18 +45,17 @@ def _load_data():
         >>> X, y = _load_data()
     """
     download_slice_localization_data()
-    data_folder = Path(__file__).parent
-    if not os.path.exists(os.path.join(data_folder, "CT_slice_X.npy")):
+    if not os.path.exists(os.path.join(directory_name, "CT_slice_X.npy")):
         data = np.genfromtxt(
-            os.path.join(data_folder, "slice_localization_data.csv"),
+            os.path.join(directory_name, "slice_localization_data.csv"),
             delimiter=","
         )
         X = data[:, :385]
         y = data[:, -1]
-        np.save(os.path.join(data_folder, "CT_slice_X.npy"), X)
-        np.save(os.path.join(data_folder, "CT_slice_y.npy"), y)
-    X = np.load(os.path.join(data_folder, "CT_slice_X.npy"))
-    y = np.load(os.path.join(data_folder, "CT_slice_y.npy"))
+        np.save(os.path.join(directory_name, "CT_slice_X.npy"), X)
+        np.save(os.path.join(directory_name, "CT_slice_y.npy"), y)
+    X = np.load(os.path.join(directory_name, "CT_slice_X.npy"))
+    y = np.load(os.path.join(directory_name, "CT_slice_y.npy"))
     X = MinMaxScaler().fit_transform(X)
     y = MinMaxScaler().fit_transform(y.reshape(-1, 1)).squeeze()
     return X, y

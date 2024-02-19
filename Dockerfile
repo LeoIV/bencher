@@ -25,7 +25,6 @@ RUN wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoc
     tar -xf mujoco210-linux-x86_64.tar.gz && \
     rm mujoco210-linux-x86_64.tar.gz && \
     rm -rf /tmp/mujocopy-buildlock
-
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3.11 -
 # Install Pyenv
@@ -34,7 +33,6 @@ RUN git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
 ARG CACHEBUST=1
 # Clone bencher repository
 RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git
-
 # Install benchmarks
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/pypoetry \

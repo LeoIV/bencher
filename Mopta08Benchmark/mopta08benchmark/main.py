@@ -6,14 +6,30 @@ import sys
 import tempfile
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.grcp_service import GRCPService
-from pathlib import Path
 from platform import machine
+
+directory_file_descriptor = tempfile.TemporaryDirectory()
+directory_name = directory_file_descriptor.name
 
 
 def download_mopta_executable(
-        executable_name: str
+        executable_name: str,
 ):
-    if not Path(__file__).parent.joinpath(executable_name).exists():
+    """
+    Download MOPTA Executable
+
+    :param executable_name: The name of the executable file to be downloaded.
+    :return: None
+
+    This method downloads the specified MOPTA executable file from a remote server. If the executable file does not exist in the specified directory, it will be downloaded and saved there
+    *. The file will be downloaded using the provided `executable_name` and stored in the `directory_name` directory.
+
+    Example usage:
+        download_mopta_executable("mopta.exe")
+
+    This will download the executable file "mopta.exe" and save it in the current working directory.
+    """
+    if not os.path.exists(os.path.join(directory_name, executable_name)):
         print(f"{executable_name} not found. Downloading...")
         url = f"http://mopta-executables.s3-website.eu-north-1.amazonaws.com/{executable_name}"
         print(f"Downloading {url}")
@@ -21,10 +37,10 @@ def download_mopta_executable(
         import requests
         response = requests.get(url, verify=False)
 
-        with open(os.path.join(Path(__file__).parent, executable_name), "wb") as file:
+        with open(os.path.join(directory_name, executable_name), "wb") as file:
             file.write(response.content)
         # make executable
-        os.chmod(os.path.join(Path(__file__).parent, executable_name), 0o755)
+        os.chmod(os.path.join(directory_name, executable_name), 0o755)
         print(f"Downloaded {executable_name}")
 
 
@@ -68,6 +84,7 @@ class Mopta08ServiceServicer(GRCPService):
             :return: The evaluated result.
             :rtype: float
     """
+
     def __init__(
             self
     ):
@@ -93,7 +110,7 @@ class Mopta08ServiceServicer(GRCPService):
         download_mopta_executable(self._mopta_exectutable)
 
         self._mopta_exectutable = os.path.join(
-            Path(__file__).parent, self._mopta_exectutable
+            directory_name, self._mopta_exectutable
         )
 
         self.directory_file_descriptor = tempfile.TemporaryDirectory()
