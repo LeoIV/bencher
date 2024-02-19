@@ -39,7 +39,6 @@ Stage: build
 
 %startscript
     bash -c "/docker-entrypoint.sh"
-    sleep 5
 
 %runscript
     echo "Container was created"
