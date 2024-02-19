@@ -115,15 +115,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
-      - uses: eWaterCycle/setup-singularity@v7
+      - uses: eWaterCycle/setup-apptainer@v2
         with:
-          singularity-version: 3.8.3
+          apptainer-version: 1.2.5
       - name: build singularity container
         env:
           SINGULARITY_DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           SINGULARITY_DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          singularity build --sandbox --fakeroot bencher.sif container.sdef
+          apptainer build --sandbox bencher.sif container.sdef
           if [ $? -ne 0 ]; then
             echo "Singularity build failed."
             exit 1
@@ -131,7 +131,7 @@ jobs:
       - name: start singularity instance
         run: |
           # start instance
-          singularity instance start bencher.sif bencher
+          apptainer instance start bencher.sif bencher
       - name: run bencherclient
         run: |
-          singularity run instance://bencher python3 /opt/bencherclient/run_all_benchmarks.py
+          apptainer run instance://bencher python3 /opt/bencherclient/run_all_benchmarks.py
