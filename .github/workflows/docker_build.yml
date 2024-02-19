@@ -7,7 +7,7 @@ env:
   LATEST_TAG: ${{ secrets.DOCKERHUB_USERNAME }}/bencher:latest
 
 jobs:
-  build:
+  build-test-docker:
     runs-on: ubuntu-latest
 
     steps:
@@ -103,3 +103,26 @@ jobs:
           build-args: |
             CACHEBUST=${{ github.sha }}
 
+  build-test-singularity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+      - name: build singularity container
+        run: |
+          singularity build --sandbox --fakeroot bencher.sif singularity_container
+          if [ $? -ne 0 ]; then
+            echo "Singularity build failed."
+            exit 1
+          fi
+      - name: start singularity instance
+        run: |
+          # start instance
+          singularity instance start bencher.sif bencher
+      - name: run bencherclient
+        run: |
+          singularity run instance://bencher python3 /opt/bencherclient/run_all_benchmarks.py
