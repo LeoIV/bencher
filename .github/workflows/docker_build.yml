@@ -105,6 +105,7 @@ jobs:
 
   build-test-singularity:
     runs-on: ubuntu-latest
+    requires: build-test-docker
     steps:
       - uses: actions/checkout@v4
         with:
