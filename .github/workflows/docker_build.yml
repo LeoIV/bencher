@@ -99,6 +99,7 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v5
+        if: ${{ github.event_name != 'schedule' }}
         with:
           context: bencher
           push: true
