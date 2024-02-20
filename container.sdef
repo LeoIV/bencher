@@ -9,11 +9,7 @@ Stage: build
     export POETRY_VIRTUALENVS_PATH=/opt/virtualenvs
     export POETRY_HOME=/opt/poetry
 
-
 %post
-    rm -rf runs/* || true
-    rm *.sif || true
-    rm -rf .idea || true
     apt update -y
     apt install git curl -y
 
@@ -24,7 +20,7 @@ Stage: build
     export PATH="/opt/poetry/bin:$PATH"
 
     cd /opt
-    git clone https://LeoIV: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@github.com/LeoIV/bencherclient.git
+    git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencherclient.git
     cd bencherclient
     poetry install --no-root --with dev
 
