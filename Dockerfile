@@ -13,9 +13,9 @@ ENV LANG=C.UTF-8 \
 ENV PATH $POETRY_HOME/bin:$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 
 # Install necessary programs
-ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget \
+ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev \
     curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl swig \
-    libglew-dev patchelf wget python3-dev"
+    libglew-dev patchelf python3-dev"
 ARG RUNTIME_DEPENDENCIES="libglfw3 gcc libosmesa6-dev libgl1-mesa-glx"
 WORKDIR /opt
 
@@ -24,7 +24,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 # Install software, configure Mujoco, Pyenv and Poetry
 RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDENCIES && \
-    wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
+    curl -O https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
     tar -xf mujoco210-linux-x86_64.tar.gz && \
     rm mujoco210-linux-x86_64.tar.gz && \
     rm -rf /tmp/mujocopy-buildlock && \
