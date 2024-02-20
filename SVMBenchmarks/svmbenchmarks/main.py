@@ -4,11 +4,8 @@ import lzma
 import os
 import tempfile
 import threading
-import traceback
 
-import grpc
 import numpy as np
-
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.grcp_service import GRCPService
 from numpy.random import RandomState
@@ -32,10 +29,16 @@ def download_slice_localization_data():
         print(f"Downloading {url}")
         import requests
         response = requests.get(url, verify=False)
+
+        # save the .xz file
+        with open(os.path.join(directory_name, "slice_localization_data.csv.xz"), "wb") as out:
+            out.write(response.content)
         # unpack the data
-        with lzma.open(io.BytesIO(response.content)) as f:
-            with open(os.path.join(directory_name, "slice_localization_data.csv"), "wb") as out:
-                out.write(f.read())
+        with lzma.open(os.path.join(directory_name, "slice_localization_data.csv.xz"), "rb") as f, open(
+                os.path.join(directory_name, "slice_localization_data.csv"), "wt"
+        ) as out:
+            out.write(f.read().decode("utf-8"))
+
         print(f"Downloaded slice_localization_data.csv")
 
 
