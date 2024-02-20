@@ -51,7 +51,7 @@ class MujocoServiceServicer(GRCPService):
         x = lb + (ub - lb) * x
         func_factory = func_factory_map[request.benchmark](None)
         result = EvaluationResult(
-            value=float(func_factory(x)[0].squeeze()),
+            value=-float(func_factory(x)[0].squeeze()),
         )
         return result
 
