@@ -3,6 +3,7 @@ import logging
 import lzma
 import os
 import tempfile
+import threading
 
 import numpy as np
 
@@ -14,6 +15,7 @@ from sklearn.svm import SVR
 
 directory_file_descriptor = tempfile.TemporaryDirectory()
 directory_name = directory_file_descriptor.name
+lock = threading.Lock()
 
 
 def download_slice_localization_data():
@@ -51,6 +53,7 @@ def _load_data():
 
         >>> X, y = _load_data()
     """
+
     download_slice_localization_data()
     if not os.path.exists(os.path.join(directory_name, "CT_slice_X.npy")):
         data = np.genfromtxt(
@@ -89,7 +92,12 @@ class SvmServiceServicer(GRCPService):
     def __init__(
             self
     ):
-        super().__init__(port=50058, n_cores=1)
+        super().__init__(port=50058)
+        self.data_initialized = False
+
+    def initialize_data(
+            self
+    ):
         self.X, self.y = _load_data()
         idxs = RandomState(388).choice(np.arange(len(self.X)), min(10000, len(self.X)), replace=False)
         half = len(idxs) // 2
@@ -117,6 +125,11 @@ class SvmServiceServicer(GRCPService):
         Please note that this method assumes that the benchmark name in the request is "svm". If the benchmark name is different, an assertion error will occur.
         """
         assert request.benchmark == "svm", "Invalid benchmark name"
+        with lock:
+            if not self.data_initialized:
+                self.initialize_data()
+                self.data_initialized = True
+
         x = request.point.values
         x = np.array(x).squeeze()
         C = 0.01 * (500 ** x[387])

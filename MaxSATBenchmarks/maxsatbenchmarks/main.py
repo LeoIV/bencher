@@ -1,3 +1,5 @@
+import threading
+
 import logging
 import numpy as np
 import os
@@ -31,6 +33,8 @@ data_loader_map = {
     'maxsat60' : download_maxsat60_data,
     'maxsat125': download_maxsat125_data
 }
+
+lock = threading.Lock()
 
 
 def eval(
@@ -79,7 +83,7 @@ class MaxSATServiceServicer(GRCPService):
     def __init__(
             self
     ):
-        super().__init__(port=50055, n_cores=1)
+        super().__init__(port=50055)
 
     @lru_cache(maxsize=2)
     def get_wcnf_weights_totalweight_clauseidxs_clauses(
@@ -99,7 +103,8 @@ class MaxSATServiceServicer(GRCPService):
         fname = filename_map[benchmark]
         dataloader = data_loader_map[benchmark]
         # download data if not present
-        dataloader(directory_name)
+        with lock:
+            dataloader(directory_name)
 
         wcnf = WCNF(
             os.path.join(

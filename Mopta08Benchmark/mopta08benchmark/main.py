@@ -29,6 +29,7 @@ def download_mopta_executable(
 
     This will download the executable file "mopta.exe" and save it in the current working directory.
     """
+
     if not os.path.exists(os.path.join(directory_name, executable_name)):
         print(f"{executable_name} not found. Downloading...")
         url = f"http://mopta-executables.s3-website.eu-north-1.amazonaws.com/{executable_name}"
@@ -95,22 +96,21 @@ class Mopta08ServiceServicer(GRCPService):
 
         if self.machine == "armv7l":
             assert self.sysarch == 32, "Not supported"
-            self._mopta_exectutable = "mopta08_armhf.bin"
+            self._mopta_exectutable_basename = "mopta08_armhf.bin"
         elif self.machine == "x86_64":
             assert self.sysarch == 64, "Not supported"
-            self._mopta_exectutable = "mopta08_elf64.bin"
+            self._mopta_exectutable_basename = "mopta08_elf64.bin"
         elif self.machine == "i386":
             assert self.sysarch == 32, "Not supported"
-            self._mopta_exectutable = "mopta08_elf32.bin"
+            self._mopta_exectutable_basename = "mopta08_elf32.bin"
         elif self.machine == "amd64":
             assert self.sysarch == 64, "Not supported"
-            self._mopta_exectutable = "mopta08_amd64.exe"
+            self._mopta_exectutable_basename = "mopta08_amd64.exe"
         else:
             raise RuntimeError("Machine with this architecture is not supported")
-        download_mopta_executable(self._mopta_exectutable)
 
         self._mopta_exectutable = os.path.join(
-            directory_name, self._mopta_exectutable
+            directory_name, self._mopta_exectutable_basename
         )
 
         self.directory_file_descriptor = tempfile.TemporaryDirectory()
@@ -136,6 +136,7 @@ class Mopta08ServiceServicer(GRCPService):
 
         """
         assert request.benchmark == 'mopta08'
+        download_mopta_executable(self._mopta_exectutable_basename)
         x = request.point.values
         x = np.array(x)
         # mopta is in [0, 1]^n so we don't need to scale
