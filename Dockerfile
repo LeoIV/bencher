@@ -9,6 +9,7 @@ ENV LANG=C.UTF-8 \
     MUJOCO_PY_MUJOCO_PATH=/opt/mujoco210 \
     PYENV_ROOT="/opt/.pyenv" \
     LD_LIBRARY_PATH=/opt/mujoco210/bin:/bin/usr/local/nvidia/lib64:/usr/lib/nvidia:$LD_LIBRARY_PATH
+    LIBSVMDATA_HOME=/tmp
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 ENV PATH $POETRY_HOME/bin:$PATH
 
@@ -24,7 +25,7 @@ WORKDIR /opt
 RUN wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
     tar -xf mujoco210-linux-x86_64.tar.gz && \
     rm mujoco210-linux-x86_64.tar.gz && \
-    rm -rf /tmp/mujocopy-buildlock
+    rm -rf /tmp/mujocopy-buildlock \
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3.11 -
 # Install Pyenv
