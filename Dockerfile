@@ -24,7 +24,7 @@ COPY docker-entrypoint.sh /docker-entrypoint.sh
 
 # Install software, configure Mujoco, Pyenv and Poetry
 RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDENCIES && \
-    curl -O https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
+    curl -LO https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
     tar -xf mujoco210-linux-x86_64.tar.gz && \
     rm mujoco210-linux-x86_64.tar.gz && \
     rm -rf /tmp/mujocopy-buildlock && \
