@@ -53,7 +53,7 @@ def serve():
     n_cores = args.cores
     server = grpc.server(ThreadPoolExecutor(max_workers=n_cores))
     bencher_pb2_grpc.add_BencherServicer_to_server(bencher_server, server)
-    server.add_insecure_port("localhost:" + port)
+    server.add_insecure_port("[::]:" + port)
     server.start()
     print("Server started, listening on " + port)
     server.wait_for_termination()

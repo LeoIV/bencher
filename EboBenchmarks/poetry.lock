@@ -77,7 +77,7 @@ protobuf = "^4.25.2"
 type = "git"
 url = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git"
 reference = "master"
-resolved_reference = "e7e818277bf0143503f20a32561c099f881c6a75"
+resolved_reference = "0b39880227bc37b54f3122b6a7e18b79ab9db3cb"
 
 [[package]]
 name = "box2d"
