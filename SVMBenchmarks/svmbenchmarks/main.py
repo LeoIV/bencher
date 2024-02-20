@@ -23,13 +23,18 @@ def download_slice_localization_data():
     :return: None
     """
     if not os.path.exists(os.path.join(directory_name, "slice_localization_data.csv")):
+        print(f"{os.path.join(directory_name, 'slice_localization_data.csv')} not found. Downloading...")
         url = "http://mopta-executables.s3-website.eu-north-1.amazonaws.com/slice_localization_data.csv.xz"
+        print(f"Downloading {url}")
         import requests
         response = requests.get(url, verify=False)
         # unpack the data
         with lzma.open(io.BytesIO(response.content)) as f:
             with open(os.path.join(directory_name, "slice_localization_data.csv"), "wb") as out:
                 out.write(f.read())
+        print(f"Downloaded slice_localization_data.csv")
+        # remove the xz file
+        os.remove(os.path.join(directory_name, "slice_localization_data.csv.xz"))
 
 
 def _load_data():
