@@ -69,7 +69,7 @@ class Mopta08ServiceServicer(GRCPService):
             Sets the _mopta_exectutable attribute to the full path of the executable file.
             Creates a temporary directory for storing input and output files.
 
-        EvaluatePoint(request: BenchmarkRequest, context) -> EvaluationResult:
+        evaluate_point(request: BenchmarkRequest, context) -> EvaluationResult:
             Evaluates the given point against the Mopta08 benchmark.
             :param request: The benchmark request object containing the point to evaluate.
             :type request: BenchmarkRequest
@@ -116,14 +116,14 @@ class Mopta08ServiceServicer(GRCPService):
         self.directory_file_descriptor = tempfile.TemporaryDirectory()
         self.directory_name = self.directory_file_descriptor.name
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
         """
 
-        .. function:: EvaluatePoint(self, request: BenchmarkRequest, context) -> EvaluationResult
+        .. function:: evaluate_point(self, request: BenchmarkRequest, context) -> EvaluationResult
 
             Evaluate the given point against the specified benchmark.
 

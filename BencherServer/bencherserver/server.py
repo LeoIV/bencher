@@ -48,7 +48,7 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
             assert name not in self.stubs, f"Name {name} already registered"
             self.stubs[name] = stub
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context: grpc.ServicerContext | None = None
@@ -70,7 +70,7 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
         assert benchmark_name in self.stubs, f"Invalid benchmark name {benchmark_name}, available: {list(self.stubs.keys())}"
         stub = self.stubs[benchmark_name]
         try:
-            response = stub.EvaluatePoint(request)
+            response = stub.evaluate_point(request)
         except grpc.RpcError as e:
             stack_trace = traceback.format_exc()
             context.set_details(stack_trace)

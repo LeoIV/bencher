@@ -37,7 +37,7 @@ class EboServiceServicer(GRCPService):
         )
         self._domain = domain
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context

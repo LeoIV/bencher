@@ -88,7 +88,7 @@ class SvmServiceServicer(GRCPService):
 
     Methods:
         - __init__(self): Initializes the SVM service.
-        - EvaluatePoint(self, request: BenchmarkRequest, context) -> EvaluationResult: Evaluates a point using SVM.
+        - evaluate_point(self, request: BenchmarkRequest, context) -> EvaluationResult: Evaluates a point using SVM.
 
     """
 
@@ -109,13 +109,13 @@ class SvmServiceServicer(GRCPService):
         self._y_train = self.y[idxs[:half]]
         self._y_test = self.y[idxs[half:]]
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
         """
-        EvaluatePoint Method
+        evaluate_point Method
 
         :param request: An instance of the BenchmarkRequest class, representing the request to evaluate a point.
         :param context: The context in which the evaluation is being performed.

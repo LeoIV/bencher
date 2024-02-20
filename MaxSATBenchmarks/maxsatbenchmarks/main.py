@@ -132,7 +132,7 @@ class MaxSATServiceServicer(GRCPService):
 
         return weights, total_weight, clause_idxs, clauses
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context

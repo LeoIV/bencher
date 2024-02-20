@@ -38,7 +38,7 @@ class MujocoServiceServicer(GRCPService):
     ):
         super().__init__(port=50057, n_cores=1)
 
-    def EvaluatePoint(
+    def evaluate_point(
             self,
             request: BenchmarkRequest,
             context
