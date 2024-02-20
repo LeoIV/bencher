@@ -5,7 +5,7 @@ import os
 import tempfile
 
 import numpy as np
-import requests
+
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.grcp_service import GRCPService
 from numpy.random import RandomState
@@ -15,6 +15,7 @@ from sklearn.svm import SVR
 directory_file_descriptor = tempfile.TemporaryDirectory()
 directory_name = directory_file_descriptor.name
 
+
 def download_slice_localization_data():
     """
     Downloads the slice localization data from a specified URL and saves it locally.
@@ -23,7 +24,8 @@ def download_slice_localization_data():
     """
     if not os.path.exists(os.path.join(directory_name, "slice_localization_data.csv")):
         url = "http://mopta-executables.s3-website.eu-north-1.amazonaws.com/slice_localization_data.csv.xz"
-        response = requests.get(url)
+        import requests
+        response = requests.get(url, verify=False)
         # unpack the data
         with lzma.open(io.BytesIO(response.content)) as f:
             with open(os.path.join(directory_name, "slice_localization_data.csv"), "wb") as out:
@@ -78,6 +80,7 @@ class SvmServiceServicer(GRCPService):
         - EvaluatePoint(self, request: BenchmarkRequest, context) -> EvaluationResult: Evaluates a point using SVM.
 
     """
+
     def __init__(
             self
     ):
