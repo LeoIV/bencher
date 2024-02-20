@@ -4,7 +4,9 @@ import lzma
 import os
 import tempfile
 import threading
+import traceback
 
+import grpc
 import numpy as np
 
 from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
@@ -35,8 +37,6 @@ def download_slice_localization_data():
             with open(os.path.join(directory_name, "slice_localization_data.csv"), "wb") as out:
                 out.write(f.read())
         print(f"Downloaded slice_localization_data.csv")
-        # remove the xz file
-        os.remove(os.path.join(directory_name, "slice_localization_data.csv.xz"))
 
 
 def _load_data():
