@@ -46,7 +46,6 @@ Stage: build
 %runscript
     bash -c "your-command-to-run-your-app"
 ```
-
 This will create an Apptainer container with the Docker image `gaunab/bencher:latest` and the repository `your-repo`
 with the dependencies `your-dependencies` installed.
 
