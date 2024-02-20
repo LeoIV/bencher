@@ -8,10 +8,9 @@ ENV LANG=C.UTF-8 \
     POETRY_VIRTUALENVS_IN_PROJECT=true \
     MUJOCO_PY_MUJOCO_PATH=/opt/mujoco210 \
     PYENV_ROOT="/opt/.pyenv" \
-    LD_LIBRARY_PATH=/opt/mujoco210/bin:/bin/usr/local/nvidia/lib64:/usr/lib/nvidia:$LD_LIBRARY_PATH
+    LD_LIBRARY_PATH=/opt/mujoco210/bin:/bin/usr/local/nvidia/lib64:/usr/lib/nvidia:$LD_LIBRARY_PATH \
     LIBSVMDATA_HOME=/tmp
-ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
-ENV PATH $POETRY_HOME/bin:$PATH
+ENV PATH $POETRY_HOME/bin:$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 
 # Install necessary programs
 ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget \
@@ -20,23 +19,20 @@ ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz
 ARG RUNTIME_DEPENDENCIES="libglfw3 gcc libosmesa6-dev libgl1-mesa-glx"
 RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDENCIES
 
-# Configure Mujoco
+# Configure Mujoco, Pyenv and Poetry
 WORKDIR /opt
 RUN wget https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
     tar -xf mujoco210-linux-x86_64.tar.gz && \
     rm mujoco210-linux-x86_64.tar.gz && \
-    rm -rf /tmp/mujocopy-buildlock \
-# Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3.11 -
-# Install Pyenv
-RUN git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
+    rm -rf /tmp/mujocopy-buildlock && \
+    curl -sSL https://install.python-poetry.org | python3.11 - && \
+    git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
 # Cachebust
 ARG CACHEBUST=1
-# Clone bencher repository
-RUN git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git
-# Install benchmarks
+# Clone bencher repository and install benchmarks
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/pypoetry \
+    git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git \
     for dir in /opt/bencher/*; do \
         if [ -d "$dir" ]; then \
             if [ -f "$dir/.python-version" ]; then \
