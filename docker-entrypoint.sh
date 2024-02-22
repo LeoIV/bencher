@@ -15,10 +15,10 @@ for dir in /opt/bencher/*; do
       echo "Starting benchmark service for $dir"
       (
       cd "$dir" || exit
-      bash -c "PATH='/opt/poetry/bin:$PATH' poetry run start-benchmark-service & >> /opt/bencher/bencher.log 2>&1"
+      bash -c "PATH='/opt/poetry/bin:$PATH' poetry run start-benchmark-service & >> /tmp/bencher.log"
       )
   fi
 done
 
 # Keep container running
-tail -f /opt/bencher/bencher.log
+tail -f /dev/null
