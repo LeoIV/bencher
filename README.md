@@ -115,17 +115,17 @@ print(result)
 
 The following benchmarks are available:
 
-| Benchmark Name     | # Dimensions | Source(s) |
-|--------------------|--------------|-----------|
-| lasso-dna          | 180          | [^1]      |
-| lasso-simple       | 60           | [^1]      |
-| lasso-medium       | 100          | [^1]      |
-| lasso-high         | 300          | [^1]      |
-| lasso-hard         | 1000         | [^1]      |
-| lasso-leukemia     | 7129         | [^1]      |
-| lasso-rcv1         | 47236        | [^1][^2]  |
-| lasso-diabetes     | 8            | [^1]      |
-| lasso-breastcancer | 10           | [^1]      |
+| Benchmark Name     | # Dimensions | Source(s)  |
+|--------------------|--------------|------------|
+| lasso-dna          | 180          | [^1]       |
+| lasso-simple       | 60           | [^1]       |
+| lasso-medium       | 100          | [^1]       |
+| lasso-high         | 300          | [^1]       |
+| lasso-hard         | 1000         | [^1]       |
+| lasso-leukemia     | 7129         | [^1]       |
+| lasso-rcv1         | 47236        | [^1],[^2] |
+| lasso-diabetes     | 8            | [^1]       |
+| lasso-breastcancer | 10           | [^1]       |
 | mopta08            | 124          |
 | maxsat60           | 60           |
 | maxsat125          | 125          |
@@ -138,7 +138,6 @@ The following benchmarks are available:
 | mujoco-swimmer     | 16           |
 | mujoco-humanoid    | 6392         |
 | svm                | 388          |
-
-* [^1]: [LassoBench](https://github.com/ksehic/LassoBench) (`
+[^1]: [LassoBench](https://github.com/ksehic/LassoBench) (`
 Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", Proceedings of the 1st International Conference on Automated Machine Learning, 2022.`)
-* 
+[^2]: The LassoBench paper states 19,959 features, but the number of features in the RCV1 dataset is 47,236.	
