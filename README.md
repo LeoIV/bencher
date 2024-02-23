@@ -115,29 +115,35 @@ print(result)
 
 The following benchmarks are available:
 
-| Benchmark Name     | # Dimensions | Source(s)  |
-|--------------------|--------------|------------|
-| lasso-dna          | 180          | [^1]       |
-| lasso-simple       | 60           | [^1]       |
-| lasso-medium       | 100          | [^1]       |
-| lasso-high         | 300          | [^1]       |
-| lasso-hard         | 1000         | [^1]       |
-| lasso-leukemia     | 7129         | [^1]       |
+| Benchmark Name     | # Dimensions | Source(s) |
+|--------------------|--------------|-----------|
+| lasso-dna          | 180          | [^1],[^5] |
+| lasso-simple       | 60           | [^1]      |
+| lasso-medium       | 100          | [^1]      |
+| lasso-high         | 300          | [^1],[^5] |
+| lasso-hard         | 1000         | [^1],[^5] |
+| lasso-leukemia     | 7129         | [^1]      |
 | lasso-rcv1         | 47236        | [^1],[^2] |
-| lasso-diabetes     | 8            | [^1]       |
-| lasso-breastcancer | 10           | [^1]       |
-| mopta08            | 124          |
-| maxsat60           | 60           |
-| maxsat125          | 125          |
-| robotpushing       | 14           |
-| rover              | 60           |
-| mujoco-ant         | 888          |
-| mujoco-hopper      | 33           |
-| mujoco-walker      | 102          |
-| mujoco-halfcheetah | 102          |
-| mujoco-swimmer     | 16           |
-| mujoco-humanoid    | 6392         |
-| svm                | 388          |
+| lasso-diabetes     | 8            | [^1]      |
+| lasso-breastcancer | 10           | [^1]      |
+| mopta08            | 124          | [^4],[^5] |
+| maxsat60           | 60           | [^6],[^7] |
+| maxsat125          | 125          | [^7]      |
+| robotpushing       | 14           | [^3]      |
+| rover              | 60           | [^3]      |
+| mujoco-ant         | 888          | [^5]      |
+| mujoco-hopper      | 33           | [^5]      |
+| mujoco-walker      | 102          | [^5]      |
+| mujoco-halfcheetah | 102          | [^5]      |
+| mujoco-swimmer     | 16           | [^5]      |
+| mujoco-humanoid    | 6392         | [^5]      |
+| svm                | 388          | [^4],[^5] |
+
 [^1]: [LassoBench](https://github.com/ksehic/LassoBench) (`
-Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", Proceedings of the 1st International Conference on Automated Machine Learning, 2022.`)
-[^2]: The LassoBench paper states 19,959 features, but the number of features in the RCV1 dataset is 47,236.	
+Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", AutoML conference, 2022.`)
+[^2]: The LassoBench paper states 19,959 features, but the number of features in the RCV1 dataset is 47,236.
+[^3]: [TurBO](https://github.com/uber-research/TuRBO) (`David Eriksson, Michael Pearce, Jacob Gardner, Ryan D Turner and Matthias Poloczek "Scalable Global Optimization via Local Bayesian Optimization." NeurIPS 2019`)
+[^4]: `High-dimensional Bayesian optimization with sparse axisaligned subspaces`
+[^5]: `BAxUS`
+[^6]: `BODi`
+[^7]: `Bounce`
