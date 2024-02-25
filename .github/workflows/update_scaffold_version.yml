@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          path: bencher
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -33,7 +31,7 @@ jobs:
 
       - name: Lock all subprojects
         run: |
-          for dir in bencher/*; do \
+          for dir in *; do \
             if [ -d "$dir" ]; then \
               echo "Processing $dir"; \
               if [ -f "$dir/.python-version" ]; then \
@@ -53,7 +51,6 @@ jobs:
 
       - name: Commit if changes
         run: |
-          cd $GITHUB_WORKSPACE
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump version"
