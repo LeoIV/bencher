@@ -43,7 +43,7 @@ jobs:
                 cd ..; \
               fi; \
               cd $dir && \
-              poetry update bencherscaffold -v && \
+              poetry update --lock bencherscaffold -v && \
               if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
               fi; \
