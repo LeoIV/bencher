@@ -37,14 +37,15 @@ jobs:
               if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
                 pyenv install $(cat .python-version) || echo "pyenv already installed version $(cat .python-version)" && \
-                PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version) && cd ..; \
+                PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version) && \
+                cd ..; \
               fi; \
               cd $dir && \
               poetry update bencherscaffold -v && \
-              cd ..; \
               if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
               fi; \
+              cd $GITHUB_WORKSPACE; \
             fi; \
             echo "Current working directory: $(pwd)"; \
           done
