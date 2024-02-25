@@ -32,7 +32,7 @@ jobs:
         run: |
           for dir in bencher/*; do \
             echo "Processing $dir" && \
-            echo "Current working directory: $(pwd)" && \
+            echo "Current working directory: $(pwd)"; \
             if [ -d "$dir" ]; then \
               if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
@@ -46,7 +46,7 @@ jobs:
                 poetry env use system; \
               fi; \
             fi; \
-            echo "(After) Current working directory: $(pwd)" && \
+            echo "Current working directory: $(pwd)"; \
           done
 
       - name: Commit if changes
