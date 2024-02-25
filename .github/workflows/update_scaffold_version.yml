@@ -33,11 +33,10 @@ jobs:
           for dir in bencher/*; do \
             echo "Processing $dir" && \
             if [ -d "$dir" ]; then \
-              #if [ -f "$dir/.python-version" ]; then \
+              if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
                 pyenv install $(cat .python-version) || echo "pyenv already installed version $(cat .python-version)" && \
-                PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version); && \
-                cd ..; \
+                PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version) && cd ..; \
               fi; \
               cd $dir && \
               poetry update bencherscaffold -v && \
