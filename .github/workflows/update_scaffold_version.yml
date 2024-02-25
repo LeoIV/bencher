@@ -15,6 +15,11 @@ jobs:
         with:
           path: bencher
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Install python version
         uses: gabrielfalcao/pyenv-action@v18
         with:
@@ -40,3 +45,12 @@ jobs:
               fi; \
             fi; \
           done
+
+      - name: Commit if changes
+        run: |
+          poetry run python bump_version.py
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Bump version"
+          git push
+        
