@@ -115,35 +115,37 @@ print(result)
 
 The following benchmarks are available:
 
-| Benchmark Name     | # Dimensions | Source(s) |
-|--------------------|--------------|-----------|
-| lasso-dna          | 180          | [^1],[^5] |
-| lasso-simple       | 60           | [^1]      |
-| lasso-medium       | 100          | [^1]      |
-| lasso-high         | 300          | [^1],[^5] |
-| lasso-hard         | 1000         | [^1],[^5] |
-| lasso-leukemia     | 7129         | [^1]      |
-| lasso-rcv1         | 47236        | [^1],[^2] |
-| lasso-diabetes     | 8            | [^1]      |
-| lasso-breastcancer | 10           | [^1]      |
-| mopta08            | 124          | [^4],[^5] |
-| maxsat60           | 60           | [^6],[^7] |
-| maxsat125          | 125          | [^7]      |
-| robotpushing       | 14           | [^3]      |
-| rover              | 60           | [^3]      |
-| mujoco-ant         | 888          | [^5]      |
-| mujoco-hopper      | 33           | [^5]      |
-| mujoco-walker      | 102          | [^5]      |
-| mujoco-halfcheetah | 102          | [^5]      |
-| mujoco-swimmer     | 16           | [^5]      |
-| mujoco-humanoid    | 6392         | [^5]      |
-| svm                | 388          | [^4],[^5] |
+| Benchmark Name     | # Dimensions | Source(s)      |
+|--------------------|--------------|----------------|
+| lasso-dna          | 180          | [^1],[^5]      |
+| lasso-simple       | 60           | [^1]           |
+| lasso-medium       | 100          | [^1]           |
+| lasso-high         | 300          | [^1],[^5]      |
+| lasso-hard         | 1000         | [^1],[^5]      |
+| lasso-leukemia     | 7129         | [^1]           |
+| lasso-rcv1         | 47236        | [^1],[^2]      |
+| lasso-diabetes     | 8            | [^1]           |
+| lasso-breastcancer | 10           | [^1]           |
+| mopta08            | 124          | [^4],[^5]      |
+| maxsat60           | 60           | [^6],[^7]      |
+| maxsat125          | 125          | [^7]           |
+| robotpushing       | 14           | [^3]           |
+| rover              | 60           | [^3]           |
+| mujoco-ant         | 888          | [^9],[^5]      |
+| mujoco-hopper      | 33           | [^9],[^5]      |
+| mujoco-walker      | 102          | [^9],[^5]      |
+| mujoco-halfcheetah | 102          | [^9],[^5]      |
+| mujoco-swimmer     | 16           | [^9],[^5]      |
+| mujoco-humanoid    | 6392         | [^9],[^5]      |
+| svm                | 388          | [^4],[^5],[^8] |
 
-[^1]: [LassoBench](https://github.com/ksehic/LassoBench) (`
+[^1]: [`LassoBench`](https://github.com/ksehic/LassoBench) (`
 Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", AutoML conference, 2022.`)
 [^2]: The LassoBench paper states 19,959 features, but the number of features in the RCV1 dataset is 47,236.
-[^3]: [TurBO](https://github.com/uber-research/TuRBO) (`David Eriksson, Michael Pearce, Jacob Gardner, Ryan D Turner and Matthias Poloczek "Scalable Global Optimization via Local Bayesian Optimization." NeurIPS 2019`)
-[^4]: `High-dimensional Bayesian optimization with sparse axisaligned subspaces`
-[^5]: `BAxUS`
-[^6]: `BODi`
-[^7]: `Bounce`
+[^3]: [`TurBO`](https://github.com/uber-research/TuRBO) (`David Eriksson, Michael Pearce, Jacob Gardner, Ryan D Turner and Matthias Poloczek, "Scalable Global Optimization via Local Bayesian Optimization." NeurIPS 2019`)
+[^4]: [`SAASBO`](https://github.com/martinjankowiak/saasbo) `David Eriksson and Martin Jankowiak, "High-dimensional Bayesian optimization with sparse axis-aligned subspaces", UAI 2021`
+[^5]: [`BAxUS`](https://github.com/LeoIV/BAxUS) `Leonard Papenmeier, Luigi Nardi, and Matthias Poloczek, "Increasing the Scope as You Learn: Adaptive Bayesian Optimization in Nested Subspaces", NeurIPS 2022`
+[^6]: [`BODi`](https://github.com/aryandeshwal/BODi) `Aryan Deshwal, Sebastian Ament, Maximilian Balandat, Eytan Bakshy, Janardhan Rao Doppa, and David Eriksson, "Bayesian Optimization over High-Dimensional Combinatorial Spaces via Dictionary-based Embeddings", AISTATS 2023`
+[^7]: [`Bounce`](https://github.com/LeoIV/bounce) `Leonard Papenmeier, Luigi Nardi and Matthias Poloczek, "Bounce: Reliable High-Dimensional Bayesian Optimization for Combinatorial and Mixed Spaces", NeurIPS 2023`
+[^8]: The SVM benchmark is not included in the repository and was obtained by corresponding with the authors of the paper.
+[^9]: [`LA-MCTS`](https://github.com/facebookresearch/LA-MCTS) `Linnan Wang, Rodrigo Fonseca, and Yuandong Tian, "Learning Search Space Partition for Black-box Optimization using Monte Carlo Tree Search", NeurIPS 2020`
