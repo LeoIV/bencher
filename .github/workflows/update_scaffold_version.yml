@@ -26,6 +26,7 @@ jobs:
       - name: Lock all subprojects
         run: |
           for dir in *; do \
+            echo "Processing $dir" && \
             if [ -d "$dir" ]; then \
               if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
