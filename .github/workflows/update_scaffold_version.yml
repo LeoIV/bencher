@@ -9,6 +9,9 @@ jobs:
   update-scaffold-version:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,9 +34,8 @@ jobs:
       - name: Lock all subprojects
         run: |
           for dir in bencher/*; do \
-            echo "Processing $dir" && \
-            echo "Current working directory: $(pwd)"; \
             if [ -d "$dir" ]; then \
+              echo "Processing $dir"; \
               if [ -f "$dir/.python-version" ]; then \
                 cd $dir && \
                 pyenv install $(cat .python-version) || echo "pyenv already installed version $(cat .python-version)" && \
@@ -47,11 +49,11 @@ jobs:
               fi; \
               cd $GITHUB_WORKSPACE; \
             fi; \
-            echo "Current working directory: $(pwd)"; \
           done
 
       - name: Commit if changes
         run: |
+          cd $GITHUB_WORKSPACE
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump version"
