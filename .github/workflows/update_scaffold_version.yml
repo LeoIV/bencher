@@ -39,7 +39,7 @@ jobs:
                 PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version); \
               fi; \
               cd $dir && \
-              poetry lock -v && \
+              poetry update bencherscaffold -v && \
               if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
               fi; \
@@ -48,7 +48,6 @@ jobs:
 
       - name: Commit if changes
         run: |
-          poetry run python bump_version.py
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump version"
