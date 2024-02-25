@@ -1,0 +1,41 @@
+name: Update scaffold
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-scaffold-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: bencher
+
+      - name: Install python version
+        uses: gabrielfalcao/pyenv-action@v18
+        with:
+          default: 3.11
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Lock all subprojects
+        run: |
+          for dir in *; do \
+            if [ -d "$dir" ]; then \
+              if [ -f "$dir/.python-version" ]; then \
+                cd $dir && \
+                pyenv install $(cat .python-version) || echo "pyenv already installed version $(cat .python-version)" && \
+                PATH="$PYENV_ROOT/shims:$PATH" poetry env use $(cat .python-version); \
+              fi; \
+              cd $dir && \
+              poetry lock -v && \
+              if [ -f "$dir/.python-version" ]; then \
+                poetry env use system; \
+              fi; \
+            fi; \
+          done
