@@ -1,5 +1,7 @@
 name: Update scaffold
 
+on: workflow_dispatch
+
 jobs:
   update-scaffold-version:
     runs-on: ubuntu-latest
