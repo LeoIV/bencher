@@ -13,7 +13,7 @@ files = [
 
 [[package]]
 name = "bencherscaffold"
-version = "0.1.10"
+version = "0.1.11"
 description = ""
 optional = false
 python-versions = "^3.8"
@@ -28,7 +28,7 @@ protobuf = "^4.25.2"
 type = "git"
 url = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git"
 reference = "master"
-resolved_reference = "e2b02ac78f0922a8ee0e8dc7888852bc1b6a1274"
+resolved_reference = "80d266f8387352275bc1cff51cedd124866b6b74"
 
 [[package]]
 name = "cffi"
