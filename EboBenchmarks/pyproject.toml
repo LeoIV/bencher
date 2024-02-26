@@ -11,7 +11,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.8"
 ebo = { git = "https://github.com/LeoIV/Ensemble-Bayesian-Optimization.git" }
-bencherscaffold = { git = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git", branch = "master" }
+bencherscaffold = "^0.1.0"
 numpy = "^1.20.1"
 
 [tool.poetry.scripts]
