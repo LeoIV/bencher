@@ -50,7 +50,7 @@ unittest-minimal = ["tensorboard", "torchvision", "torchx"]
 
 [[package]]
 name = "bencherscaffold"
-version = "0.1.11"
+version = "0.1.2"
 description = ""
 optional = false
 python-versions = "^3.8"
@@ -65,7 +65,7 @@ protobuf = "^4.25.2"
 type = "git"
 url = "https://LeoIV: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@github.com/LeoIV/BencherScaffold.git"
 reference = "master"
-resolved_reference = "80d266f8387352275bc1cff51cedd124866b6b74"
+resolved_reference = "d14a2f191fa35d29f3248179c6f191f8c1e26624"
 
 [[package]]
 name = "botorch"
