@@ -1,10 +1,5 @@
 name: Update scaffold
 
-on:
-  on:
-    repository_dispatch:
-      types: [ update_scaffold ]
-
 jobs:
   update-scaffold-version:
     runs-on: ubuntu-latest
