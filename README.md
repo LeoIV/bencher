@@ -38,7 +38,9 @@ Stage: build
 %post
     cd /opt
     git clone your-repo
-    cd your-repo && install your-dependencies
+    cd your-repo
+    pip install bencherscaffold # you'll need bencherscaffold to call bencher
+    pip install your-dependencies
 
 %startscript
     bash -c "/docker-entrypoint.sh"
