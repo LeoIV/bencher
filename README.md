@@ -11,14 +11,16 @@ repository.
 ```shell
 pwd # /path/to/bencher
 docker build -t bencher .
-docker run -p 50051:50051 --name bencher-container bencher
+# always keep the container running, can be stopped with docker stop <container-id>
+docker run -p 50051:50051 --restart always -d gaunab/bencher:latest
 ```
 
 **or**
 
 ```shell
 docker pull gaunab/bencher:latest
-docker run -p 50051:50051 --name bencher-container gaunab/bencher:latest
+# always keep the container running, can be stopped with docker stop <container-id>
+docker run -p 50051:50051 --restart always -d gaunab/bencher:latest
 ```
 
 # Apptainer / Singularity Container
