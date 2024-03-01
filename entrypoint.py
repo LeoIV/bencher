@@ -1,15 +1,15 @@
 import os
-import threading
 import subprocess
+import threading
 
 
 class ServiceThread(threading.Thread):
     def __init__(
             self,
-            dir: str
+            service_dir: str
     ):
         threading.Thread.__init__(self)
-        self.dir = dir
+        self.dir = service_dir
 
     def run(
             self
@@ -28,9 +28,12 @@ if __name__ == '__main__':
     os.environ["POETRY_VIRTUALENVS_IN_PROJECT"] = "true"
 
     threads = []
-    for dir in os.listdir("/opt/bencher"):
-        if os.path.isdir(os.path.join("/opt/bencher", dir)):
-            thread = ServiceThread(os.path.join("/opt/bencher", dir))
+    for service_dir in os.listdir("/opt/bencher"):
+        # check if dir and pyproject.toml exists
+        if os.path.isdir(os.path.join("/opt/bencher", service_dir)) and os.path.isfile(
+                os.path.join("/opt/bencher", service_dir, "pyproject.toml")
+        ):
+            thread = ServiceThread(os.path.join("/opt/bencher", service_dir))
             thread.start()
             threads.append(thread)
 

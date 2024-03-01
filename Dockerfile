@@ -31,7 +31,7 @@ RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDE
     curl -sSL https://install.python-poetry.org | python3.11 - && \
     git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
 # Cachebust
-ARG CACHEBUST=1
+ARG CACHEBUST=2
 # Clone bencher repository and install benchmarks, clean up, and make entrypoint script executable
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/pypoetry \
