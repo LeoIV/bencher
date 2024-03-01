@@ -19,8 +19,7 @@ ARG BUILD_DEPENDENCIES="git curl g++ build-essential libssl-dev zlib1g-dev libbz
 ARG RUNTIME_DEPENDENCIES="libglfw3 gcc libosmesa6-dev libgl1-mesa-glx"
 WORKDIR /opt
 
-# Copy the entrypoint script into the Docker image
-COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY entrypoint.py /entrypoint.py
 
 # Install software, configure Mujoco, Pyenv and Poetry
 RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDENCIES && \
@@ -57,7 +56,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     rm -rf /root/.cache/pypoetry/* && \
 
 # Set the entrypoint
-ENTRYPOINT ["python3.11", "/opt/bencher/entrypoint.py"]
+ENTRYPOINT ["python3.11", "/entrypoint.py"]
 
 EXPOSE 50051
 
