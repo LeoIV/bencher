@@ -17,7 +17,14 @@ class ServiceThread(threading.Thread):
         try:
             os.chdir(self.dir)
             print(f"Starting service in directory {self.dir}")
-            subprocess.check_call(["poetry", "run", "start-benchmark-service"], stdout=open('/tmp/bencher.log', 'a'))
+            # logfile in home directory
+            outfile = os.path.join(os.environ["HOME"], "bencher.out")
+            errfile = os.path.join(os.environ["HOME"], "bencher.err")
+            subprocess.check_call(
+                ["poetry", "run", "start-benchmark-service"],
+                stdout=open(outfile, 'a+'),
+                stderr=open(errfile, 'a+')
+            )
         except subprocess.CalledProcessError as e:
             raise Exception(f"Service failed in directory {self.dir}") from e
 
