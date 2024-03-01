@@ -22,11 +22,12 @@ class ServiceThread(threading.Thread):
             outfile = os.path.join(os.environ["HOME"], "bencher.out")
             errfile = os.path.join(os.environ["HOME"], "bencher.err")
             subprocess.check_call(
-                ["poetry run start-benchmark-service"],
+                ["/opt/poetry/bin/poetry run start-benchmark-service"],
                 stdout=open(outfile, 'a+'),
                 stderr=open(errfile, 'a+'),
                 cwd=self.dir,
-                shell=True
+                shell=True,
+                env=os.environ
             )
         except subprocess.CalledProcessError as e:
             raise Exception(f"Service failed in directory {self.dir}") from e
