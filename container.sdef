@@ -34,7 +34,7 @@ Stage: build
     rm -rf /root/.cache/pypoetry/*
 
 %startscript
-    bash -c "python 3.11 entrypoint.py"
+    bash -c "python3.11 entrypoint.py"
 
 %runscript
     echo "Container was created"
