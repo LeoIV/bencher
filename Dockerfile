@@ -54,6 +54,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /root/.cache/pip/* && \
     rm -rf /root/.cache/pypoetry/* && \
+    chmod +x /entrypoint.py
 
 # Set the entrypoint
 ENTRYPOINT ["python3.11", "/entrypoint.py"]
