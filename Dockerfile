@@ -58,7 +58,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     chmod +x /docker-entrypoint.sh
 
 # Set the entrypoint
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["python3.11", "/opt/bencher/entrypoint.py"]
 
 EXPOSE 50051
 
