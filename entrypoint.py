@@ -1,8 +1,11 @@
+import time
+
 from pathlib import Path
 
 import os
 import subprocess
 import threading
+
 
 # please run my action, GitHub
 
@@ -28,6 +31,7 @@ class ServiceThread(threading.Thread):
                 stderr=open(errfile, 'a+'),
                 cwd=self.dir,
                 shell=True,
+                env=os.environ
             )
         except subprocess.CalledProcessError as e:
             raise Exception(f"Service failed in directory {self.dir}") from e
@@ -52,6 +56,18 @@ if __name__ == '__main__':
             thread.start()
             threads.append(thread)
 
-    # Wait for all threads to complete
-    for thread in threads:
-        thread.join()
+    # check threads every 5 seconds
+    while True:
+        # check for keyboard interrupt
+        try:
+            for thread in threads:
+                if not thread.is_alive():
+                    print(f"Thread {thread.dir} is dead. Exiting...")
+                    exit(1)
+            # sleep for 5 seconds
+            time.sleep(5)
+        except KeyboardInterrupt:
+            print("Keyboard interrupt. Exiting...")
+            exit(1)
+        # sleep for 5 seconds
+        time.sleep(5)

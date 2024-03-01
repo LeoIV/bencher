@@ -20,17 +20,17 @@ test = ["astroid (>=1,<2)", "astroid (>=2,<4)", "pytest"]
 
 [[package]]
 name = "ax-platform"
-version = "0.3.6"
+version = "0.3.7"
 description = "Adaptive Experimentation"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ax-platform-0.3.6.tar.gz", hash = "sha256:c8be9b4c00a0e4a1aebf443e8d3da7c52cf98f9a88e27591058d6f5f0d16470e"},
-    {file = "ax_platform-0.3.6-py3-none-any.whl", hash = "sha256:286c3986d3a869b2c361dc457c605fb8cafab57d5920172a666f40683f993f78"},
+    {file = "ax-platform-0.3.7.tar.gz", hash = "sha256:91f6a7d0eb08826e2f3f6a17fa64d4c9e2980ecd2147ed6418d7340c302961c1"},
+    {file = "ax_platform-0.3.7-py3-none-any.whl", hash = "sha256:efcd18c1d1c9dc5ccf495667d69503d8b33217ebc6b80e9e9b4caeb5dcae6f11"},
 ]
 
 [package.dependencies]
-botorch = "0.9.5"
+botorch = "0.10.0"
 ipywidgets = "*"
 jinja2 = "*"
 pandas = "*"
@@ -44,7 +44,7 @@ typeguard = "*"
 dev = ["Jinja2", "beautifulsoup4", "black (==22.3.0)", "flake8", "hypothesis", "jupyter-client (==6.1.12)", "nbconvert", "pyfakefs (==5.1.0)", "pytest (>=4.6)", "pytest-cov", "sphinx (==5.3.0)", "sphinx-autodoc-typehints (==1.19.5)", "torchvision (>=0.5.0)", "yappi"]
 mysql = ["SQLAlchemy (==1.4.17)"]
 notebook = ["jupyter"]
-tutorial = ["Jinja2", "SQLAlchemy (==1.4.17)", "beautifulsoup4", "black (==22.3.0)", "flake8", "hypothesis", "jupyter", "jupyter-client (==6.1.12)", "matplotlib", "nbconvert", "papermill", "pyarrow", "pyfakefs (==5.1.0)", "pyro-ppl", "pytest (>=4.6)", "pytest-cov", "pytorch-lightning", "ray", "sphinx (==5.3.0)", "sphinx-autodoc-typehints (==1.19.5)", "tabulate", "tensorboard", "tensorboardX", "torchvision", "torchvision (>=0.5.0)", "torchx", "yappi"]
+tutorial = ["Jinja2", "SQLAlchemy (==1.4.17)", "beautifulsoup4", "black (==22.3.0)", "flake8", "hypothesis", "jupyter", "jupyter-client (==6.1.12)", "matplotlib", "nbconvert", "papermill", "pyarrow", "pyfakefs (==5.1.0)", "pyro-ppl", "pytest (>=4.6)", "pytest-cov", "pytorch-lightning", "ray", "sphinx (==5.3.0)", "sphinx-autodoc-typehints (==1.19.5)", "submitit", "tabulate", "tensorboard", "tensorboardX", "torchvision", "torchvision (>=0.5.0)", "torchx", "yappi"]
 unittest = ["Jinja2", "SQLAlchemy (==1.4.17)", "beautifulsoup4", "black (==22.3.0)", "flake8", "hypothesis", "jupyter", "jupyter-client (==6.1.12)", "nbconvert", "pyfakefs (==5.1.0)", "pytest (>=4.6)", "pytest-cov", "sphinx (==5.3.0)", "sphinx-autodoc-typehints (==1.19.5)", "tensorboard", "torchvision", "torchvision (>=0.5.0)", "torchx", "yappi"]
 unittest-minimal = ["tensorboard", "torchvision", "torchx"]
 
@@ -65,18 +65,19 @@ protobuf = ">=4.25.2,<5.0.0"
 
 [[package]]
 name = "botorch"
-version = "0.9.5"
+version = "0.10.0"
 description = "Bayesian Optimization in PyTorch"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "botorch-0.9.5-py3-none-any.whl", hash = "sha256:bd86aa43b028bbb2959928790f0090351ce73fdefdab7502253a7e15db9c7a12"},
-    {file = "botorch-0.9.5.tar.gz", hash = "sha256:9e07193eb7cede00da0b8a2455b0423893c732a8ec61efff18e73f9ec7cbbd33"},
+    {file = "botorch-0.10.0-py3-none-any.whl", hash = "sha256:c9cbdaff99957909c4bee93f95541b08f26e3767b97097d8f3bc429d98b01401"},
+    {file = "botorch-0.10.0.tar.gz", hash = "sha256:31b363fc8d0c514b7e00d35d7b2eb0a4fd22b6cede14aca24ce5b65f88694889"},
 ]
 
 [package.dependencies]
 gpytorch = "1.11"
 linear-operator = "0.5.1"
+mpmath = ">=0.19,<=1.3"
 multipledispatch = "*"
 pyro-ppl = ">=1.8.4"
 scipy = "*"
@@ -1790,13 +1791,13 @@ test = ["black (>=21.4b0)", "graphviz (>=0.8)", "jupyter (>=1.0.0)", "matplotlib
 
 [[package]]
 name = "python-dateutil"
-version = "2.8.2"
+version = "2.9.0"
 description = "Extensions to the standard Python datetime module"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 files = [
-    {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
-    {file = "python_dateutil-2.8.2-py2.py3-none-any.whl", hash = "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"},
+    {file = "python-dateutil-2.9.0.tar.gz", hash = "sha256:78e73e19c63f5b20ffa567001531680d939dc042bf7850431877645523c66709"},
+    {file = "python_dateutil-2.9.0-py2.py3-none-any.whl", hash = "sha256:cbf2f1da5e6083ac2fbfd4da39a25f34312230110440f424a14c7558bb85d82e"},
 ]
 
 [package.dependencies]
