@@ -39,6 +39,10 @@
     "port": 50054,
     "dimensions": 124
   },
+  "pestcontrol": {
+    "port": 50054,
+    "dimensions": 25
+  },
   "maxsat60": {
     "port": 50055,
     "dimensions": 60
