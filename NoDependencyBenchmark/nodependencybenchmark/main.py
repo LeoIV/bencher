@@ -11,6 +11,89 @@ from platform import machine
 directory_file_descriptor = tempfile.TemporaryDirectory()
 directory_name = directory_file_descriptor.name
 
+SUPPORTED_BENCHMARKS = [
+    'mopta08',
+    'pestcontrol'
+]
+
+
+# Source: https://github.com/aryandeshwal/BODi/blob/main/bodi/pestcontrol.py
+
+def _pest_spread(
+        curr_pest_frac,
+        spread_rate,
+        control_rate,
+        apply_control
+):
+    if apply_control:
+        next_pest_frac = (1.0 - control_rate) * curr_pest_frac
+    else:
+        next_pest_frac = spread_rate * (1 - curr_pest_frac) + curr_pest_frac
+    return next_pest_frac
+
+
+def _pest_control_score(
+        x: np.ndarray,
+        seed=None
+):
+    U = 0.1
+    n_stages = x.size
+    n_simulations = 100
+
+    init_pest_frac_alpha = 1.0
+    init_pest_frac_beta = 30.0
+    spread_alpha = 1.0
+    spread_beta = 17.0 / 3.0
+
+    control_alpha = 1.0
+    control_price_max_discount = {1: 0.2, 2: 0.3, 3: 0.3, 4: 0.0}
+    tolerance_develop_rate = {1: 1.0 / 7.0, 2: 2.5 / 7.0, 3: 2.0 / 7.0, 4: 0.5 / 7.0}
+    control_price = {1: 1.0, 2: 0.8, 3: 0.7, 4: 0.5}
+    # below two changes over stages according to x
+    control_beta = {1: 2.0 / 7.0, 2: 3.0 / 7.0, 3: 3.0 / 7.0, 4: 5.0 / 7.0}
+
+    payed_price_sum = 0
+    above_threshold = 0
+
+    if seed is not None:
+        init_pest_frac = np.random.RandomState(seed).beta(
+            init_pest_frac_alpha,
+            init_pest_frac_beta,
+            size=(n_simulations,)
+        )
+    else:
+        init_pest_frac = np.random.beta(init_pest_frac_alpha, init_pest_frac_beta, size=(n_simulations,))
+    curr_pest_frac = init_pest_frac
+    for i in range(n_stages):
+        if seed is not None:
+            spread_rate = np.random.RandomState(seed).beta(spread_alpha, spread_beta, size=(n_simulations,))
+        else:
+            spread_rate = np.random.beta(spread_alpha, spread_beta, size=(n_simulations,))
+        do_control = x[i] > 0
+        if do_control:
+            if seed is not None:
+                control_rate = np.random.RandomState(seed).beta(
+                    control_alpha,
+                    control_beta[x[i]],
+                    size=(n_simulations,)
+                )
+            else:
+                control_rate = np.random.beta(control_alpha, control_beta[x[i]], size=(n_simulations,))
+            next_pest_frac = _pest_spread(curr_pest_frac, spread_rate, control_rate, True)
+            # torelance has been developed for pesticide type 1
+            control_beta[x[i]] += tolerance_develop_rate[x[i]] / float(n_stages)
+            # you will get discount
+            payed_price = control_price[x[i]] * (
+                    1.0 - control_price_max_discount[x[i]] / float(n_stages) * float(np.sum(x == x[i])))
+        else:
+            next_pest_frac = _pest_spread(curr_pest_frac, spread_rate, 0, False)
+            payed_price = 0
+        payed_price_sum += payed_price
+        above_threshold += np.mean(curr_pest_frac > U)
+        curr_pest_frac = next_pest_frac
+
+    return payed_price_sum + above_threshold
+
 
 def download_mopta_executable(
         executable_name: str,
@@ -45,46 +128,7 @@ def download_mopta_executable(
         print(f"Downloaded {executable_name}")
 
 
-class Mopta08ServiceServicer(GRCPService):
-    """
-    Mopta08ServiceServicer
-
-    This class is a gRPC service for evaluating points against the Mopta08 benchmark. It provides methods for evaluating points and returning the evaluation results.
-
-    Attributes:
-        sysarch (int): The system architecture (32 or 64) based on the maximum size. Default is 64.
-        machine (str): The machine on which the service is running. Default is the lowercase machine name.
-        _mopta_exectutable (str): The name of the mopta08 executable file based on the system architecture and machine.
-                                  This will be used for evaluating points.
-        directory_file_descriptor (TemporaryDirectory): A temporary directory object for storing input and output files.
-        directory_name (str): The name of the temporary directory.
-
-    Methods:
-        __init__():
-            Initializes the Mopta08ServiceServicer object with the gRPC service port and number of cores.
-            Sets the sysarch attribute based on the system's maximum size.
-            Sets the machine attribute based on the lowercase machine name.
-            Sets the _mopta_exectutable attribute based on the machine and sysarch.
-            Downloads the mopta executable file if it does not exist.
-            Sets the _mopta_exectutable attribute to the full path of the executable file.
-            Creates a temporary directory for storing input and output files.
-
-        evaluate_point(request: BenchmarkRequest, context) -> EvaluationResult:
-            Evaluates the given point against the Mopta08 benchmark.
-            :param request: The benchmark request object containing the point to evaluate.
-            :type request: BenchmarkRequest
-            :param context: The evaluation context.
-            :type context: Any
-            :return: The evaluation result.
-            :rtype: EvaluationResult
-
-        eval(x: np.ndarray) -> float:
-            Evaluates the function with the given input.
-            :param x: Input array.
-            :type x: np.ndarray
-            :return: The evaluated result.
-            :rtype: float
-    """
+class NoDependencyServiceServicer(GRCPService):
 
     def __init__(
             self
@@ -135,17 +179,27 @@ class Mopta08ServiceServicer(GRCPService):
             :rtype: EvaluationResult
 
         """
-        assert request.benchmark == 'mopta08'
-        download_mopta_executable(self._mopta_exectutable_basename)
+        assert request.benchmark in SUPPORTED_BENCHMARKS, "Invalid benchmark name"
+
         x = request.point.values
         x = np.array(x)
-        # mopta is in [0, 1]^n so we don't need to scale
+
+        match request.benchmark:
+            case "mopta08":
+                download_mopta_executable(self._mopta_exectutable_basename)
+                # mopta is in [0, 1]^n so we don't need to scale
+                fun = self.eval_mopta08
+            case "pestcontrol":
+                fun = _pest_control_score
+            case _:
+                raise ValueError("Invalid benchmark name")
+
         result = EvaluationResult(
-            value=self.eval(x)
+            value=fun(x)
         )
         return result
 
-    def eval(
+    def eval_mopta08(
             self,
             x: np.ndarray
     ) -> float:
@@ -186,5 +240,5 @@ class Mopta08ServiceServicer(GRCPService):
 
 def serve():
     logging.basicConfig()
-    mopta = Mopta08ServiceServicer()
-    mopta.serve()
+    nodep = NoDependencyServiceServicer()
+    nodep.serve()
