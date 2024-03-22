@@ -26,7 +26,8 @@ class ServiceThread(threading.Thread):
             outfile = os.path.join(os.environ["HOME"], "bencher.out")
             errfile = os.path.join(os.environ["HOME"], "bencher.err")
             subprocess.check_call(
-                [os.path.join(self.dir, ".venv", "bin", "start-benchmark-service")],
+                # -h only recognized by server
+                [os.path.join(self.dir, ".venv", "bin", "start-benchmark-service -h localhost")],
                 stdout=open(outfile, 'a+'),
                 stderr=open(errfile, 'a+'),
                 cwd=self.dir,

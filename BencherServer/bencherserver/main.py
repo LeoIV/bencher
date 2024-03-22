@@ -27,6 +27,14 @@ def serve():
         help='The number of CPU cores to use. If None, it will use the maximum number of CPU cores available on the system. Default is cpu_count()',
         default=os.cpu_count()
     )
+    argparse.add_argument(
+        '-h',
+        '--hostname',
+        type=str,
+        required=False,
+        help='The hostname where the stub is running. Default is taken from the benchmark-registry.json file.',
+        default=None
+    )
     args = argparse.parse_args()
 
     bencher_server = BencherServer()
@@ -47,8 +55,9 @@ def serve():
         ports_to_benchmarks[(port, hostname)].append(benchmark_name)
 
     for (port, hostname), benchmarks in ports_to_benchmarks.items():
-        print(f"registering {benchmarks} on port {port}")
-        bencher_server.register_stub(benchmarks, port, hostname)
+        _hostname = args.hostname or hostname
+        print(f"registering {benchmarks} on port {_hostname}:{port}")
+        bencher_server.register_stub(benchmarks, port, _hostname)
 
     port = str(args.port)
     n_cores = args.cores
