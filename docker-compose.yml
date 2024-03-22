@@ -1,0 +1,29 @@
+services:
+  server:
+    build: BencherServer
+    ports:
+      - "50051:50051"
+  lasso:
+    build: LassoBenchmarks
+    ports:
+      - "50053:50053"
+  no_dependency:
+    build: NoDependencyBenchmark
+    ports:
+      - "50054:50054"
+  maxsat:
+    build: MaxSATBenchmarks
+    ports:
+      - "50055:50055"
+  ebo:
+    build: EboBenchmarks
+    ports:
+      - "50056:50056"
+  mujoco:
+    build: MujocoBenchmarks
+    ports:
+      - "50057:50057"
+  svm:
+    build: SVMBenchmarks
+    ports:
+      - "50058:50058"

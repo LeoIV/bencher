@@ -36,18 +36,19 @@ def serve():
         open(os.path.join(os.path.dirname(__file__), 'benchmark-registry.json'), 'r'),
     )
 
-    # structure: {benchmark_name: {port: int, dimensions: int}}
+    # structure: {benchmark_name: {hostname: str, port: int, dimensions: int}}
     ports_to_benchmarks = dict()
 
     for benchmark_name, properties in benchmark_names_to_properties.items():
         port = properties['port']
-        if port not in ports_to_benchmarks:
-            ports_to_benchmarks[port] = []
-        ports_to_benchmarks[port].append(benchmark_name)
+        hostname = properties['hostname']
+        if (port, hostname) not in ports_to_benchmarks:
+            ports_to_benchmarks[(port, hostname)] = []
+        ports_to_benchmarks[(port, hostname)].append(benchmark_name)
 
-    for port, benchmarks in ports_to_benchmarks.items():
+    for (port, hostname), benchmarks in ports_to_benchmarks.items():
         print(f"registering {benchmarks} on port {port}")
-        bencher_server.register_stub(benchmarks, port)
+        bencher_server.register_stub(benchmarks, port, hostname)
 
     port = str(args.port)
     n_cores = args.cores

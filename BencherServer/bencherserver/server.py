@@ -29,7 +29,8 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
     def register_stub(
             self,
             names: list[str],
-            port: int
+            port: int,
+            hostname: str = "localhost"
     ):
         """
         Registers a stub for a given list of names and port.
@@ -37,12 +38,13 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
         Args:
             names (list[str]): A list of names to register the stub.
             port (int): The port on which the stub is running.
+            hostname (str): The hostname where the stub is running. Default is "localhost".
 
         Returns:
             None
         """
         stub = second_level_services_pb2_grpc.SecondLevelBencherStub(
-            grpc.insecure_channel(f"localhost:{port}")
+            grpc.insecure_channel(f"{hostname}:{port}")
         )
         for name in names:
             assert name not in self.stubs, f"Name {name} already registered"

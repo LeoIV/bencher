@@ -1,89 +1,111 @@
 {
   "lasso-dna": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 180
   },
   "lasso-simple": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 60
   },
   "lasso-medium": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 100
   },
   "lasso-high": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 300
   },
   "lasso-hard": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 1000
   },
   "lasso-leukemia": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 7129
   },
   "lasso-rcv1": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 47236
   },
   "lasso-diabetes": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 8
   },
   "lasso-breastcancer": {
+    "hostname": "lasso",
     "port": 50053,
     "dimensions": 10
   },
   "mopta08": {
+    "hostname": "no_dependency",
     "port": 50054,
     "dimensions": 124
   },
   "pestcontrol": {
+    "hostname": "no_dependency",
     "port": 50054,
     "dimensions": 25
   },
   "maxsat60": {
+    "hostname": "maxsat",
     "port": 50055,
     "dimensions": 60
   },
   "maxsat125": {
+    "hostname": "maxsat",
     "port": 50055,
     "dimensions": 125
   },
   "robotpushing": {
+    "hostname": "ebo",
     "port": 50056,
     "dimensions": 14
   },
   "rover": {
+    "hostname": "ebo",
     "port": 50056,
     "dimensions": 60
   },
   "mujoco-ant": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 888
   },
   "mujoco-hopper": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 33
   },
   "mujoco-walker": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 102
   },
   "mujoco-halfcheetah": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 102
   },
   "mujoco-swimmer": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 16
   },
   "mujoco-humanoid": {
+    "hostname": "mujoco",
     "port": 50057,
     "dimensions": 6392
   },
   "svm": {
+    "hostname": "svm",
     "port": 50058,
     "dimensions": 388
   }
