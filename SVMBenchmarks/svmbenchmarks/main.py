@@ -102,7 +102,7 @@ class SvmServiceServicer(GRCPService):
             self
     ):
         self.X, self.y = _load_data()
-        idxs = RandomState(388).choice(np.arange(len(self.X)), min(10000, len(self.X)), replace=False)
+        idxs = RandomState(388).choice(np.arange(len(self.X)), min(500, len(self.X)), replace=False)
         half = len(idxs) // 2
         self._X_train = self.X[idxs[:half]]
         self._X_test = self.X[idxs[half:]]
