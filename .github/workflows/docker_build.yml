@@ -3,7 +3,7 @@ name: Docker Build
 on:
   push:
     branches:
-      - master
+      - main
   schedule:
     - cron: '0 0 * * 1-5'
   workflow_run:
