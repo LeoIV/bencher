@@ -14,6 +14,7 @@ bencherscaffold = "^0.1.0"
 LassoBench = { git = "https://github.com/ksehic/LassoBench.git#egg=LassoBench" }
 gpy = "1.13.1"
 torch = { version = "^2.2.0", source = "torch" }
+setuptools = "^78.1.0"
 
 [[tool.poetry.source]]
 name = "torch"
