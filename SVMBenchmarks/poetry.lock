@@ -2,14 +2,14 @@
 
 [[package]]
 name = "bencherscaffold"
-version = "0.1.6"
+version = "0.3.1"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["main"]
 files = [
-    {file = "bencherscaffold-0.1.6-py3-none-any.whl", hash = "sha256:dee5166a4baca8d4e5b076810a65fe500d986fbe11fefb44d6dcd96dc42817c0"},
-    {file = "bencherscaffold-0.1.6.tar.gz", hash = "sha256:02df511e62b47d303c204f48990f5fe8f0bcaaae8819a45d009fbe5fee7ab30f"},
+    {file = "bencherscaffold-0.3.1-py3-none-any.whl", hash = "sha256:cb127397187f8679a4a22906ff7ba44b24cf30ea9b1b8202233b9b433f8be277"},
+    {file = "bencherscaffold-0.3.1.tar.gz", hash = "sha256:a603dd9923c8519b64e7b703729e761f84ab4934eb65ef92078168807b9fe1a3"},
 ]
 
 [package.dependencies]
@@ -427,4 +427,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "7959424cb587e7b6e533450f31c1bee7b77d627bdf707160ce873e920aaabc08"
+content-hash = "ac76f85ed025e0ccba89820c68cf0c6492cdff99467ba08ca8c3e475f4614001"

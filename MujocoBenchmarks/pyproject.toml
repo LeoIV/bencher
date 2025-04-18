@@ -10,7 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-bencherscaffold = "^0.1.0"
+bencherscaffold = "^0.3.1"
 mujoco-py = { git = "https://github.com/LeoIV/mujoco-py.git" }
 mujoco = "2.2.2"
 gym = "~0.24"

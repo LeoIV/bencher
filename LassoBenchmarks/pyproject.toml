@@ -10,7 +10,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-bencherscaffold = "^0.1.0"
+bencherscaffold = "^0.3.1"
 LassoBench = { git = "https://github.com/ksehic/LassoBench.git#egg=LassoBench" }
 gpy = "1.13.1"
 torch = { version = "^2.2.0", source = "torch" }
