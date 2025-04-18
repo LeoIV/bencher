@@ -42,6 +42,7 @@ jobs:
               fi; \
               cd $dir && \
               poetry update --lock bencherscaffold -v && \
+              git add poetry.lock && \
               if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
               fi; \
