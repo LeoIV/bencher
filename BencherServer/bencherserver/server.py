@@ -2,11 +2,13 @@ import traceback
 
 import grpc
 import os
-from bencherscaffold import bencher_pb2_grpc, second_level_services_pb2_grpc
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
+
+from bencherscaffold.protoclasses import second_level_services_pb2_grpc
+from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.protoclasses.bencher_pb2_grpc import BencherServicer
 
 
-class BencherServer(bencher_pb2_grpc.BencherServicer):
+class BencherServer(BencherServicer):
 
     def __init__(
             self,
