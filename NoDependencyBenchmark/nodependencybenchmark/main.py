@@ -4,9 +4,10 @@ import os
 import subprocess
 import sys
 import tempfile
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
 from platform import machine
+
+from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.protoclasses.grcp_service import GRCPService
 
 directory_file_descriptor = tempfile.TemporaryDirectory()
 directory_name = directory_file_descriptor.name

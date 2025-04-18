@@ -1,7 +1,7 @@
 import logging
 import numpy as np
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
+from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.protoclasses.grcp_service import GRCPService
 from gym.envs.box2d import LunarLander
 
 from mujocobenchmarks.functions import func_factories

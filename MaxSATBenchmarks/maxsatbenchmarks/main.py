@@ -4,9 +4,10 @@ import logging
 import numpy as np
 import os
 import tempfile
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
 from functools import lru_cache
+
+from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.protoclasses.grcp_service import GRCPService
 
 from maxsatbenchmarks.data_loading import download_maxsat60_data, download_maxsat125_data
 from maxsatbenchmarks.wcnf import WCNF

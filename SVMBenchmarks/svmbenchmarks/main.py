@@ -6,8 +6,8 @@ import tempfile
 import threading
 
 import numpy as np
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
+from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
+from bencherscaffold.protoclasses.grcp_service import GRCPService
 from numpy.random import RandomState
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVR

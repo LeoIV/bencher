@@ -1,8 +1,8 @@
 import logging
 
 import numpy as np
-from bencherscaffold.bencher_pb2 import BenchmarkRequest, EvaluationResult
-from bencherscaffold.grcp_service import GRCPService
+from bencherscaffold.protoclasses.bencher_pb2 import EvaluationResult, BenchmarkRequest
+from bencherscaffold.protoclasses.grcp_service import GRCPService
 from ebo.test_functions.push_function import PushReward
 from ebo.test_functions.rover_function import create_large_domain
 from ebo.test_functions.rover_utils import RoverDomain

@@ -4,7 +4,8 @@ from concurrent.futures import ThreadPoolExecutor
 import grpc
 import os
 from argparse import ArgumentParser
-from bencherscaffold import bencher_pb2_grpc
+
+from bencherscaffold.protoclasses import bencher_pb2_grpc
 
 from bencherserver.server import BencherServer
 
