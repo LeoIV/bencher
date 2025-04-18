@@ -42,7 +42,7 @@ class BencherServer(bencher_pb2_grpc.BencherServicer):
             None
         """
         stub = second_level_services_pb2_grpc.SecondLevelBencherStub(
-            grpc.insecure_channel(f"localhost:{port}")
+            grpc.insecure_channel(f"127.0.0.1:{port}")
         )
         for name in names:
             assert name not in self.stubs, f"Name {name} already registered"
