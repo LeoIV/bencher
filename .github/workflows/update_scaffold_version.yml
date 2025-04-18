@@ -41,6 +41,7 @@ jobs:
                 cd ..; \
               fi; \
               cd $dir && \
+              poetry cache clear pypi --all && \
               poetry update --lock bencherscaffold -v && \
               git add poetry.lock && \
               if [ -f "$dir/.python-version" ]; then \
