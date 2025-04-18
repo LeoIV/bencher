@@ -67,7 +67,7 @@ class BencherServer(BencherServicer):
             AssertionError: If the specified benchmark name is not valid.
 
         """
-        benchmark_name = request.benchmark
+        benchmark_name = request.benchmark.name
 
         assert benchmark_name in self.stubs, f"Invalid benchmark name {benchmark_name}, available: {list(self.stubs.keys())}"
         stub = self.stubs[benchmark_name]
