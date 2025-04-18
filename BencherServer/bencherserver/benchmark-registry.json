@@ -1,90 +1,112 @@
 {
   "lasso-dna": {
     "port": 50053,
-    "dimensions": 180
+    "dimensions": 180,
+    "type": "purely_continuous"
   },
   "lasso-simple": {
     "port": 50053,
-    "dimensions": 60
+    "dimensions": 60,
+    "type": "purely_continuous"
   },
   "lasso-medium": {
     "port": 50053,
-    "dimensions": 100
+    "dimensions": 100,
+    "type": "purely_continuous"
   },
   "lasso-high": {
     "port": 50053,
-    "dimensions": 300
+    "dimensions": 300,
+    "type": "purely_continuous"
   },
   "lasso-hard": {
     "port": 50053,
-    "dimensions": 1000
+    "dimensions": 1000,
+    "type": "purely_continuous"
   },
   "lasso-leukemia": {
     "port": 50053,
-    "dimensions": 7129
+    "dimensions": 7129,
+    "type": "purely_continuous"
   },
   "lasso-rcv1": {
     "port": 50053,
-    "dimensions": 47236
+    "dimensions": 47236,
+    "type": "purely_continuous"
   },
   "lasso-diabetes": {
     "port": 50053,
-    "dimensions": 8
+    "dimensions": 8,
+    "type": "purely_continuous"
   },
   "lasso-breastcancer": {
     "port": 50053,
-    "dimensions": 10
+    "dimensions": 10,
+    "type": "purely_continuous"
   },
   "mopta08": {
     "port": 50054,
-    "dimensions": 124
+    "dimensions": 124,
+    "type": "purely_continuous"
   },
   "pestcontrol": {
     "port": 50054,
-    "dimensions": 25
+    "dimensions": 25,
+    "type": "purely_categorical"
   },
   "maxsat60": {
     "port": 50055,
-    "dimensions": 60
+    "dimensions": 60,
+    "type": "purely_binary"
   },
   "maxsat125": {
     "port": 50055,
-    "dimensions": 125
+    "dimensions": 125,
+    "type": "purely_binary"
   },
   "robotpushing": {
     "port": 50056,
-    "dimensions": 14
+    "dimensions": 14,
+    "type": "purely_continuous"
   },
   "rover": {
     "port": 50056,
-    "dimensions": 60
+    "dimensions": 60,
+    "type": "purely_continuous"
   },
   "mujoco-ant": {
     "port": 50057,
-    "dimensions": 888
+    "dimensions": 888,
+    "type": "purely_continuous"
   },
   "mujoco-hopper": {
     "port": 50057,
-    "dimensions": 33
+    "dimensions": 33,
+    "type": "purely_continuous"
   },
   "mujoco-walker": {
     "port": 50057,
-    "dimensions": 102
+    "dimensions": 102,
+    "type": "purely_continuous"
   },
   "mujoco-halfcheetah": {
     "port": 50057,
-    "dimensions": 102
+    "dimensions": 102,
+    "type": "purely_continuous"
   },
   "mujoco-swimmer": {
     "port": 50057,
-    "dimensions": 16
+    "dimensions": 16,
+    "type": "purely_continuous"
   },
   "mujoco-humanoid": {
     "port": 50057,
-    "dimensions": 6392
+    "dimensions": 6392,
+    "type": "purely_continuous"
   },
   "svm": {
     "port": 50058,
-    "dimensions": 388
+    "dimensions": 388,
+    "type": "purely_continuous"
   }
 }
