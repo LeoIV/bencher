@@ -42,11 +42,11 @@ class EboServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
-        assert request.benchmark in ['robotpushing', 'rover'], "Invalid benchmark name"
+        assert request.benchmark.name in ['robotpushing', 'rover'], "Invalid benchmark name"
         x = request.point.values
         x = np.array(x).squeeze()
 
-        if request.benchmark == 'robotpushing':
+        if request.benchmark.name == 'robotpushing':
             lb = np.array(self._pr.xmin)
             ub = np.array(self._pr.xmax)
             # x is in [0, 1] space, so we need to scale it to the domain

@@ -180,12 +180,12 @@ class NoDependencyServiceServicer(GRCPService):
             :rtype: EvaluationResult
 
         """
-        assert request.benchmark in SUPPORTED_BENCHMARKS, "Invalid benchmark name"
+        assert request.benchmark.name in SUPPORTED_BENCHMARKS, "Invalid benchmark name"
 
         x = request.point.values
         x = np.array(x)
 
-        match request.benchmark:
+        match request.benchmark.name:
             case "mopta08":
                 download_mopta_executable(self._mopta_exectutable_basename)
                 # mopta is in [0, 1]^n so we don't need to scale

@@ -127,7 +127,7 @@ class SvmServiceServicer(GRCPService):
 
         Please note that this method assumes that the benchmark name in the request is "svm". If the benchmark name is different, an assertion error will occur.
         """
-        assert request.benchmark == "svm", "Invalid benchmark name"
+        assert request.benchmark.name == "svm", "Invalid benchmark name"
         with lock:
             if not self.data_initialized:
                 self.initialize_data()

@@ -143,17 +143,17 @@ class MaxSATServiceServicer(GRCPService):
         :param context: The context in which the evaluation is being performed.
         :return: Instance of the EvaluationResult class, containing the evaluated value.
         """
-        assert request.benchmark in filename_map.keys(), "Invalid benchmark name"
+        assert request.benchmark.name in filename_map.keys(), "Invalid benchmark name"
         x = request.point.values
         x = np.array(x)
         # check that x is binary
         assert np.all(np.logical_or(x == 0, x == 1)), "Input must be binary"
 
         weights, total_weight, clauseidxs, clauses = self.get_wcnf_weights_totalweight_clauseidxs_clauses(
-            request.benchmark
+            request.benchmark.name
         )
 
-        negative_weights = negative_weights_map[request.benchmark]
+        negative_weights = negative_weights_map[request.benchmark.name]
 
         result = EvaluationResult(
             value=eval(x, weights, total_weight, clauseidxs, clauses, negative_weights)

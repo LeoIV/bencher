@@ -73,15 +73,15 @@ class MujocoServiceServicer(GRCPService):
     ) -> EvaluationResult:
         x = request.point.values
         x = np.array(x).reshape(1, -1)
-        if request.benchmark in func_factory_map.keys():
+        if request.benchmark.name in func_factory_map.keys():
             # x is in [0, 1] space, we need to map it to the benchmark space
-            lb, ub = benchmark_bounds[request.benchmark]
+            lb, ub = benchmark_bounds[request.benchmark.name]
             x = lb + (ub - lb) * x
-            func_factory = func_factory_map[request.benchmark](None)
+            func_factory = func_factory_map[request.benchmark.name](None)
             result = EvaluationResult(
                 value=-float(func_factory(x)[0].squeeze()),
             )
-        elif request.benchmark == 'lunarlander':
+        elif request.benchmark.name == 'lunarlander':
             env = LunarLander()
             total_reward = 0
             steps = 0
