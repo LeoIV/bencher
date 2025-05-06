@@ -228,5 +228,130 @@
     "port": 50059,
     "dimensions": null,
     "type": "purely_continuous"
+  },
+  "pbo-onemax": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingones": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-linear": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxdummy1": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxdummy2": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxneutrality": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxepistasis": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxruggedness1": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxruggedness2": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-onemaxruggedness3": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesdummy1": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesdummy2": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesneutrality": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesepistasis": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesruggedness1": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesruggedness2": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-leadingonesruggedness3": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-labs": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-isingring": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-isingtorus": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-isingtriangular": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-mis": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-nqueens": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-concatenatedtrap": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
+  },
+  "pbo-nklandscapes": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_binary"
   }
 }
