@@ -4,7 +4,7 @@ import ioh.iohcpp
 import numpy as np
 from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.protoclasses.grcp_service import GRCPService
-from ioh import get_problem
+from ioh import get_problem, ProblemClass
 from ioh.iohcpp.problem import OneMaxDummy2
 
 
@@ -36,6 +36,7 @@ class IOHServiceServicer(GRCPService):
                     f"Benchmark {request.benchmark.name} not supported. Supported benchmarks are: {list(benchmark_candidate.values())}"
                 )
             pname, pid = pname_pid[0]
+            problemclass = ProblemClass.BBOB
         elif request.benchmark.name.strip().startswith('pbo'):
             print(f"Evaluating {request.benchmark.name} with dimension {dimension}")
             bname_trunc = request.benchmark.name.split('-')[1]
@@ -49,12 +50,13 @@ class IOHServiceServicer(GRCPService):
                     f"Benchmark {request.benchmark.name} not supported. Supported benchmarks are: {list(benchmark_candidate.values())}"
                 )
             pname, pid = pname_pid[0]
+            problemclass = ProblemClass.PBO
         else:
             raise ValueError(
                 f"Benchmark {request.benchmark.name} not supported. Supported benchmarks are: {list(ioh.iohcpp.problem.BBOB.problems.values()) + list(ioh.iohcpp.problem.PBO.problems.values())}"
             )
 
-        benchmark = get_problem(pname, pid, dimension)
+        benchmark = get_problem(pname, pid, dimension, problemclass)
         bounds = benchmark.bounds
         if bounds is not None:
             x = (x - bounds.lb) / (bounds.ub - bounds.lb)
