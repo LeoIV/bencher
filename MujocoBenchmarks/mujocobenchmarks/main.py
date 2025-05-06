@@ -7,27 +7,27 @@ from gym.envs.box2d import LunarLander
 from mujocobenchmarks.functions import func_factories
 
 func_factory_map = {
-    'mujoco-ant'        : lambda
+    'mujoco-ant': lambda
         _: func_factories["ant"].make_object(),
-    'mujoco-hopper'     : lambda
+    'mujoco-hopper': lambda
         _: func_factories["hopper"].make_object(),
-    'mujoco-walker'     : lambda
+    'mujoco-walker': lambda
         _: func_factories["walker_2d"].make_object(),
     'mujoco-halfcheetah': lambda
         _: func_factories["half_cheetah"].make_object(),
-    'mujoco-swimmer'    : lambda
+    'mujoco-swimmer': lambda
         _: func_factories["swimmer"].make_object(),
-    'mujoco-humanoid'   : lambda
+    'mujoco-humanoid': lambda
         _: func_factories["humanoid"].make_object(),
 }
 
 benchmark_bounds = {
-    'mujoco-ant'        : (-1, 1),
-    'mujoco-hopper'     : (-1.4, 1.4),
-    'mujoco-walker'     : (-1.8, 0.9),
+    'mujoco-ant': (-1, 1),
+    'mujoco-hopper': (-1.4, 1.4),
+    'mujoco-walker': (-1.8, 0.9),
     'mujoco-halfcheetah': (-1, 1),
-    'mujoco-swimmer'    : (-1, 1),
-    'mujoco-humanoid'   : (-1, 1),
+    'mujoco-swimmer': (-1, 1),
+    'mujoco-humanoid': (-1, 1),
 }
 
 
@@ -107,3 +107,7 @@ def serve():
     logging.basicConfig()
     mujoco = MujocoServiceServicer()
     mujoco.serve()
+
+
+if __name__ == '__main__':
+    serve()

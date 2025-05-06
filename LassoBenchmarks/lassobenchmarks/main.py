@@ -63,3 +63,7 @@ def serve():
     logging.basicConfig()
     lasso = LassoServiceServicer()
     lasso.serve()
+
+
+if __name__ == '__main__':
+    serve()

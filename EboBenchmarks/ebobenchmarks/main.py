@@ -67,3 +67,7 @@ def serve():
     logging.basicConfig()
     ebo = EboServiceServicer()
     ebo.serve()
+
+
+if __name__ == '__main__':
+    serve()

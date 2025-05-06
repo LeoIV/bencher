@@ -154,3 +154,7 @@ def serve():
     logging.basicConfig()
     svm = SvmServiceServicer()
     svm.serve()
+
+
+if __name__ == '__main__':
+    serve()

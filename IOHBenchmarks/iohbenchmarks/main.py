@@ -49,3 +49,7 @@ def serve():
     logging.basicConfig()
     ioh = IOHServiceServicer()
     ioh.serve()
+
+
+if __name__ == '__main__':
+    serve()

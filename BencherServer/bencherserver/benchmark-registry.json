@@ -139,7 +139,7 @@
     "dimensions": null,
     "type": "purely_continuous"
   },
-  "bbob-steppellipsoid": {
+  "bbob-stepellipsoid": {
     "port": 50059,
     "dimensions": null,
     "type": "purely_continuous"
