@@ -356,27 +356,27 @@
   },
   "graph-maxcut2000": {
     "port": 50059,
-    "dimensions": null,
+    "dimensions": 800,
     "type": "purely_binary"
   },
   "graph-maxcut2001": {
     "port": 50059,
-    "dimensions": null,
+    "dimensions": 800,
     "type": "purely_binary"
   },
   "graph-maxcut2002": {
     "port": 50059,
-    "dimensions": null,
+    "dimensions": 800,
     "type": "purely_binary"
   },
   "graph-maxcut2003": {
     "port": 50059,
-    "dimensions": null,
+    "dimensions": 800,
     "type": "purely_binary"
   },
   "graph-maxcut2004": {
     "port": 50059,
-    "dimensions": null,
+    "dimensions": 800,
     "type": "purely_binary"
   },
   "graph-maxcoverage2100": {

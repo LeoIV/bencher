@@ -5,7 +5,8 @@ import numpy as np
 from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.protoclasses.grcp_service import GRCPService
 from ioh import get_problem, ProblemClass
-from ioh.iohcpp.problem import OneMaxDummy2
+from ioh.iohcpp.problem import OneMaxDummy2, MaxCoverage
+from ioh.iohcpp.suite import RealStarDiscrepancy
 
 
 class IOHServiceServicer(GRCPService):
@@ -56,7 +57,7 @@ class IOHServiceServicer(GRCPService):
         elif request.benchmark.name.strip().startswith('graph-'):
             print(f"Evaluating {request.benchmark.name} with dimension {dimension}")
             bname_trunc = request.benchmark.name.split('-')[1]
-            benchmark_candidate = ioh.iohcpp.problem.Graph.problems
+            benchmark_candidate = ioh.iohcpp.problem.GraphProblem.problems
 
             pname_pid = [
                 (name, pid) for pid, name in benchmark_candidate.items() if name.lower().startswith(bname_trunc)
@@ -76,6 +77,7 @@ class IOHServiceServicer(GRCPService):
 
         benchmark = get_problem(pname, pid, dimension, problemclass)
         bounds = benchmark.bounds
+        MaxCoverage
         if bounds is not None:
             x = (x - bounds.lb) / (bounds.ub - bounds.lb)
             y = benchmark(x.astype(point_type))
