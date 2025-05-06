@@ -108,5 +108,125 @@
     "port": 50058,
     "dimensions": 388,
     "type": "purely_continuous"
+  },
+  "bbob-sphere": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-ellipsoid": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-rastrigin": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-buecherastrigin": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-linearslope": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-attractivesector": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-steppellipsoid": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-rosenbrock": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-rosenbrockrotated": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-ellipsoidrotated": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-discus": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-bentcigar": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-sharpridge": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-differentpowers": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-rastriginrotated": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-weierstrass": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-schaffers10": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-schaffers1000": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-griewankrosenbrock": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-schwefel": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-gallagher101": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-gallagher21": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-katsuura": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
+  },
+  "bbob-lunacekbirastrigin": {
+    "port": 50059,
+    "dimensions": null,
+    "type": "purely_continuous"
   }
 }

@@ -1,0 +1,23 @@
+[project]
+name = "iohbenchmarks"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Leonard Papenmeier",email = "leonard.papenmeier@posteo.de"}
+]
+packages = [
+    { include = "iohbenchmarks" }
+]
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "ioh (>=0.3.18,<0.4.0)",
+    "bencherscaffold (>=0.3.2,<0.4.0)"
+]
+
+[tool.poetry.scripts]
+start-benchmark-service = "iohbenchmarks.main:serve"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
