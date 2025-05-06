@@ -23,6 +23,7 @@ class IOHServiceServicer(GRCPService):
         x = np.array(x)
         dimension = x.shape[0]
         if request.benchmark.name.strip().startswith('bbob'):
+            print(f"Evaluating {request.benchmark.name} with dimension {dimension}")
             bname_trunc = request.benchmark.name.split('-')[1]
             benchmark_candidate = ioh.iohcpp.problem.BBOB.problems
 
