@@ -12,7 +12,7 @@ class IOHServiceServicer(GRCPService):
     def __init__(
             self
     ):
-        super().__init__(port=50053, n_cores=1)
+        super().__init__(port=50059, n_cores=1)
 
     def evaluate_point(
             self,
