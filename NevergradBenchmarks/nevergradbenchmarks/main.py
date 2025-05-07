@@ -3,8 +3,8 @@ import logging
 import numpy as np
 from bencherscaffold.protoclasses.bencher_pb2 import BenchmarkRequest, EvaluationResult
 from bencherscaffold.protoclasses.grcp_service import GRCPService
-from nevergrad.benchmark.experiments import complex_tsp
-
+from nevergrad.benchmark.experiments import complex_tsp, ms_bbob, image_multi_similarity_cv
+from nevergrad.benchmark import registry
 
 class NevergradServiceServicer(GRCPService):
 
@@ -26,6 +26,8 @@ class NevergradServiceServicer(GRCPService):
         result = EvaluationResult(
             value=y,
         )
+        ms_bbob
+        image_multi_similarity_cv
         return result
 
 

@@ -65,7 +65,7 @@ jobs:
           load: true
           tags: ${{ env.TEST_TAG }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha
           build-args: |
             CACHEBUST=${{ github.sha }}
 
@@ -109,7 +109,7 @@ jobs:
           push: true
           tags: ${{ env.LATEST_TAG }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-to: type=gha
           build-args: |
             CACHEBUST=${{ github.sha }}
 
