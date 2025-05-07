@@ -122,7 +122,7 @@ jobs:
           ref: ${{ github.ref }}
       - uses: eWaterCycle/setup-apptainer@v2
         with:
-          apptainer-version: 1.2.5
+          apptainer-version: 1.4.0
       - name: build singularity container
         env:
           SINGULARITY_DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
