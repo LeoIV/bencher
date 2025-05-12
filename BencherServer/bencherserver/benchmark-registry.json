@@ -74,6 +74,11 @@
     "dimensions": 60,
     "type": "purely_continuous"
   },
+  "lunarlander": {
+    "port": 50057,
+    "dimensions": 12,
+    "type": "purely_continuous"
+  },
   "mujoco-ant": {
     "port": 50057,
     "dimensions": 888,
