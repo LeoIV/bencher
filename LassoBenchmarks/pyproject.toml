@@ -25,5 +25,5 @@ priority = "explicit"
 start-benchmark-service = "lassobenchmarks.main:serve"
 
 [build-system]
-requires = ["poetry-core", "Cython<=3.0.12,>=3.0.0"]
+requires = ["poetry-core", "Cython>=0.26,<3.0"]
 build-backend = "poetry.core.masonry.api"
