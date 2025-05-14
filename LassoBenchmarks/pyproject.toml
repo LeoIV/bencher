@@ -15,7 +15,6 @@ LassoBench = { git = "https://github.com/ksehic/LassoBench.git#egg=LassoBench" }
 gpy = "1.13.1"
 torch = { version = "^2.2.0", source = "torch" }
 setuptools = "^78.1.0"
-numpy = "1.23.5"
 
 [[tool.poetry.source]]
 name = "torch"
@@ -26,5 +25,5 @@ priority = "explicit"
 start-benchmark-service = "lassobenchmarks.main:serve"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core", "Cython<=3.0.12,>=3.0.0"]
 build-backend = "poetry.core.masonry.api"
