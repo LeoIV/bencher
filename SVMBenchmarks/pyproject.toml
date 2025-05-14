@@ -14,6 +14,7 @@ bencherscaffold = "^0.3.1"
 numpy = "^1.26.4"
 requests = "^2.31.0"
 scikit-learn = "^1.4.0"
+xgboost = "^3.0.1"
 
 [tool.poetry.scripts]
 start-benchmark-service = "svmbenchmarks.main:serve"

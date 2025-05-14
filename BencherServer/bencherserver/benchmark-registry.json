@@ -114,6 +114,11 @@
     "dimensions": 388,
     "type": "purely_continuous"
   },
+  "svmmixed": {
+    "port": 50058,
+    "dimensions": 53,
+    "type": "mixed"
+  },
   "bbob-sphere": {
     "port": 50059,
     "dimensions": null,

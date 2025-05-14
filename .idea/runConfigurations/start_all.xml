@@ -2,11 +2,9 @@
   <configuration default="false" name="start all" type="CompoundRunConfigurationType">
     <toRun name="bencherserver.main" type="PythonConfigurationType" />
     <toRun name="ebobenchmarks.main" type="PythonConfigurationType" />
-    <toRun name="iohbenchmarks.main" type="PythonConfigurationType" />
     <toRun name="lassobenchmarks.main" type="PythonConfigurationType" />
     <toRun name="maxsatbenchmarks.main" type="PythonConfigurationType" />
     <toRun name="mujocobenchmarks.main" type="PythonConfigurationType" />
-    <toRun name="nevergradbenchmarks.main" type="PythonConfigurationType" />
     <toRun name="nodependencybenchmark.main" type="PythonConfigurationType" />
     <toRun name="svmbenchmarks.main" type="PythonConfigurationType" />
     <method v="2" />
