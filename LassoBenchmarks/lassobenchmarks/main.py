@@ -48,7 +48,7 @@ class LassoServiceServicer(GRCPService):
             context
     ) -> EvaluationResult:
         assert request.benchmark.name in benchmark_map.keys(), "Invalid benchmark name"
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x)
         # lasso benchmarks are in [-1, 1] while x is in [0, 1], so we need to scale it
         x = 2 * x - 1

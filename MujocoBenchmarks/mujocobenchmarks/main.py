@@ -71,7 +71,7 @@ class MujocoServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x).reshape(1, -1)
         if request.benchmark.name in func_factory_map.keys():
             # x is in [0, 1] space, we need to map it to the benchmark space

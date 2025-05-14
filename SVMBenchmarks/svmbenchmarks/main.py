@@ -44,7 +44,8 @@ def download_slice_localization_data():
     if not os.path.exists(os.path.join(directory_name, "CT_slice_X.npy")):
         data = np.genfromtxt(
             os.path.join(directory_name, "slice_localization_data.csv"),
-            delimiter=","
+            delimiter=",",
+            skip_header=1,
         )
         X = data[:, :385]
         y = data[:, -1]
@@ -52,7 +53,8 @@ def download_slice_localization_data():
         np.save(os.path.join(directory_name, "CT_slice_y.npy"), y)
     X = np.load(os.path.join(directory_name, "CT_slice_X.npy"))
     y = np.load(os.path.join(directory_name, "CT_slice_y.npy"))
-    return X, y
+    # return copies of the data
+    return X.copy(), y.copy()
 
 
 def load_data_388():
@@ -178,16 +180,28 @@ class SvmServiceServicer(GRCPService):
                 self.initialize_data(loader)
                 self.data_initialized = loader
 
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x).squeeze()
-        C = 0.01 * (500 ** x[387])
-        gamma = 0.1 * (30 ** x[386])
-        epsilon = 0.01 * (100 ** x[385])
-        length_scales = np.exp(4 * x[:385] - 2)
+        C = 0.01 * (500 ** x[-1])
+        gamma = 0.1 * (30 ** x[-2])
+        epsilon = 0.01 * (100 ** x[-3])
+        if loader == load_data_53:
+            inds_selected = np.where(x[np.arange(len(x) - 3)] == 1)[0]
+            if len(inds_selected) == 0:
+                return EvaluationResult(
+                    value=1.0
+                )
+            else:
+                _x_fit = self._X_train[:, inds_selected]
+                _x_pred = self._X_test[:, inds_selected]
+        elif loader == load_data_388:
+            length_scales = np.exp(4 * x[:-3] - 2)
+            _x_fit = self._X_train / length_scales
+            _x_pred = self._X_test / length_scales
 
         svr = SVR(gamma=gamma, epsilon=epsilon, C=C, cache_size=1500, tol=0.001)
-        svr.fit(self._X_train / length_scales, self._y_train)
-        pred = svr.predict(self._X_test / length_scales)
+        svr.fit(_x_fit, self._y_train)
+        pred = svr.predict(_x_pred)
         error = np.sqrt(np.mean(np.square(pred - self._y_test)))
         result = EvaluationResult(
             value=float(error)

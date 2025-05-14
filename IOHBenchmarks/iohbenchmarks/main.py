@@ -21,7 +21,7 @@ class IOHServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x)
         dimension = x.shape[0]
         if request.benchmark.name.strip().startswith('bbob-'):
