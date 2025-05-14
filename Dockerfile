@@ -44,6 +44,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
             fi; \
             cd $dir && \
             poetry install -v && \
+            poetry run python -c "import numpy; print(numpy.__version__)" && \
+            poetry run cython --version && \
             if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
             fi; \
