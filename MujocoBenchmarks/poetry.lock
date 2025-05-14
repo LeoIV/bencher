@@ -14,14 +14,14 @@ files = [
 
 [[package]]
 name = "bencherscaffold"
-version = "0.3.3"
+version = "0.3.4"
 description = ""
 optional = false
 python-versions = "<4.0,>=3.8"
 groups = ["main"]
 files = [
-    {file = "bencherscaffold-0.3.3-py3-none-any.whl", hash = "sha256:12faa2704f369fa89eadd3f1767c54ce87b4c9bbaac7bc9b30063caa9c706b6f"},
-    {file = "bencherscaffold-0.3.3.tar.gz", hash = "sha256:28d9d4c5f3553498c07fc123299f655616103d734bd0fd422f3ddf3693cd9c5d"},
+    {file = "bencherscaffold-0.3.4-py3-none-any.whl", hash = "sha256:e92f2bba4f09f2c6d8f46c2efae260b470469366106228b3152e6e859d3ca23a"},
+    {file = "bencherscaffold-0.3.4.tar.gz", hash = "sha256:3fc5405a7e5fc98e54b50cc2d9fd9a1533f6e0c5ca0bec1d0bbaa232fec8a3d2"},
 ]
 
 [package.dependencies]
