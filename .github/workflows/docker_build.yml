@@ -99,7 +99,13 @@ jobs:
       - name: Run bencherclient
         run: |
           cd bencherclient
-          poetry run python3 run_all_benchmarks.py
+          # run the client, print /opt/bencher.err if it fails
+          poetry run python3 run_all_benchmarks.py || {
+            echo "Bencherclient run failed."
+            # print the error log
+            docker exec ${{ env.TEST_TAG }} cat /opt/bencher.err
+            exit 1
+          }
 
       - name: Build and push
         uses: docker/build-push-action@v5
