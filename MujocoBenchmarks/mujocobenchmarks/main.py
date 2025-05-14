@@ -85,7 +85,7 @@ class MujocoServiceServicer(GRCPService):
             env = LunarLander()
             total_reward = 0
             steps = 0
-            s, info = env.reset()
+            s = env.reset()
             while True:
                 a = heuristic_controller(s, x.squeeze())
                 s, r, terminated, info = env.step(a)
