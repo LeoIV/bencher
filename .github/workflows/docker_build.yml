@@ -79,7 +79,6 @@ jobs:
         with:
           repository: 'LeoIV/bencherclient'
           ref: 'master'
-          token: ${{ secrets.BENCHERCLIENT_PAT }}
           path: bencherclient
 
       - name: Checkout python 3.11

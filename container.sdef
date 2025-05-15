@@ -20,7 +20,7 @@ Stage: build
     export PATH="/opt/poetry/bin:$PATH"
 
     cd /opt
-    git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencherclient.git
+    git clone --depth 1 https://github.com/LeoIV/bencherclient.git
     cd bencherclient
     poetry install --no-root --with dev
 

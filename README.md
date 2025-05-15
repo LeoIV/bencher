@@ -210,10 +210,10 @@ The following benchmarks are available:
 paper.
 [^9]: [`LA-MCTS`](https://github.com/facebookresearch/LA-MCTS)
 `Linnan Wang, Rodrigo Fonseca, and Yuandong Tian, "Learning Search Space Partition for Black-box Optimization using Monte Carlo Tree Search", NeurIPS 2020`
-[^10] Oh, Changyong, et al. "Combinatorial bayesian optimization using the graph cartesian product." Advances in Neural
+[^10]: Oh, Changyong, et al. "Combinatorial bayesian optimization using the graph cartesian product." Advances in Neural
 Information Processing Systems 32 (2019).
-[^11] de Nobel, Jacob, et al. "Iohexperimenter: Benchmarking platform for iterative optimization heuristics."
+[^11]: de Nobel, Jacob, et al. "Iohexperimenter: Benchmarking platform for iterative optimization heuristics."
 Evolutionary Computation 32.3 (2024): 205-210.
-[^12] Hansen, Nikolaus, et al. "COCO: A platform for comparing continuous optimizers in a black-box setting."
+[^12]: Hansen, Nikolaus, et al. "COCO: A platform for comparing continuous optimizers in a black-box setting."
 Optimization Methods and Software 36.1 (2021): 114-144.
-[^13] Each category has 5 possible values. The benchmark expects an integer between 0 and 4 for each category.
+[^13]: Each category has 5 possible values. The benchmark expects an integer between 0 and 4 for each category.
