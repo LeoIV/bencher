@@ -133,6 +133,7 @@ The following benchmarks are available:
 | maxsat60                   | 60           | binary      | [^6],[^7]      | &#x2612; |
 | maxsat125                  | 125          | binary      | [^7]           | &#x2612; |
 | robotpushing               | 14           | continuous  | [^3]           | &#x2611; |
+| lunarlander                | 12           | continuous  | [^3]           | &#x2611; |
 | rover                      | 60           | continuous  | [^3]           | &#x2612; |
 | mujoco-ant                 | 888          | continuous  | [^9],[^5]      | &#x2611; |
 | mujoco-hopper              | 33           | continuous  | [^9],[^5]      | &#x2611; |
@@ -192,6 +193,13 @@ The following benchmarks are available:
 | pbo-nqueens                | any          | binary      | [^11]          | &#x2612; |
 | pbo-concatenatedtrap       | any          | binary      | [^11]          | &#x2612; |
 | pbo-nklandscapes           | any          | binary      | [^11]          | &#x2612; |
+| graph-maxcut2000           | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcut2001           | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcut2002           | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcut2003           | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcut2004           | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcoverage2100      | 800          | binary      | [^11]          | &#x2612; |
+| graph-maxcoverage2101      | 800          | binary      | [^11]          | &#x2612; |
 
 [^1]: [`LassoBench`](https://github.com/ksehic/LassoBench) (`
 Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", AutoML conference, 2022.`)
