@@ -144,7 +144,7 @@ class MaxSATServiceServicer(GRCPService):
         :return: Instance of the EvaluationResult class, containing the evaluated value.
         """
         assert request.benchmark.name in filename_map.keys(), "Invalid benchmark name"
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x)
         # check that x is binary
         assert np.all(np.logical_or(x == 0, x == 1)), "Input must be binary"

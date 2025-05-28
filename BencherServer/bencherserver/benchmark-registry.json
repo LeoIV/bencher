@@ -74,6 +74,11 @@
     "dimensions": 60,
     "type": "purely_continuous"
   },
+  "lunarlander": {
+    "port": 50057,
+    "dimensions": 12,
+    "type": "purely_continuous"
+  },
   "mujoco-ant": {
     "port": 50057,
     "dimensions": 888,
@@ -108,6 +113,11 @@
     "port": 50058,
     "dimensions": 388,
     "type": "purely_continuous"
+  },
+  "svmmixed": {
+    "port": 50058,
+    "dimensions": 53,
+    "type": "mixed"
   },
   "bbob-sphere": {
     "port": 50059,

@@ -43,7 +43,7 @@ class EboServiceServicer(GRCPService):
             context
     ) -> EvaluationResult:
         assert request.benchmark.name in ['robotpushing', 'rover'], "Invalid benchmark name"
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x).squeeze()
 
         if request.benchmark.name == 'robotpushing':

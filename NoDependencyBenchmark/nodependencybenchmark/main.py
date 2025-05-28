@@ -182,7 +182,7 @@ class NoDependencyServiceServicer(GRCPService):
         """
         assert request.benchmark.name in SUPPORTED_BENCHMARKS, "Invalid benchmark name"
 
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x)
 
         match request.benchmark.name:

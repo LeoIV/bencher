@@ -71,7 +71,7 @@ class MujocoServiceServicer(GRCPService):
             request: BenchmarkRequest,
             context
     ) -> EvaluationResult:
-        x = request.point.values
+        x = [v.value for v in request.point.values]
         x = np.array(x).reshape(1, -1)
         if request.benchmark.name in func_factory_map.keys():
             # x is in [0, 1] space, we need to map it to the benchmark space
@@ -85,7 +85,7 @@ class MujocoServiceServicer(GRCPService):
             env = LunarLander()
             total_reward = 0
             steps = 0
-            s, info = env.reset()
+            s = env.reset()
             while True:
                 a = heuristic_controller(s, x.squeeze())
                 s, r, terminated, info = env.step(a)

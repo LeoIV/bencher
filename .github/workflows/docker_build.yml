@@ -72,14 +72,13 @@ jobs:
       - name: Run Docker container
         run: |
           cd bencher
-          docker run -d -p 50051:50051 --rm ${{ env.TEST_TAG }}
+          docker run -d -p 50051:50051 ${{ env.TEST_TAG }}
 
       - name: Checkout bencherclient code
         uses: actions/checkout@v4
         with:
           repository: 'LeoIV/bencherclient'
           ref: 'master'
-          token: ${{ secrets.BENCHERCLIENT_PAT }}
           path: bencherclient
 
       - name: Checkout python 3.11
@@ -97,9 +96,19 @@ jobs:
           poetry install --with dev --no-root
 
       - name: Run bencherclient
-        run: |
-          cd bencherclient
-          poetry run python3 run_all_benchmarks.py
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 5
+          command: |
+            cd bencherclient
+            # run the client, print /opt/bencher.err if it fails
+            poetry run python3 run_all_benchmarks.py || {
+              echo "Bencherclient run failed."
+              # print the error log
+              docker exec ${{ env.TEST_TAG }} cat /opt/bencher.err
+              exit 1
+            }
 
       - name: Build and push
         uses: docker/build-push-action@v5

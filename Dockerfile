@@ -30,11 +30,11 @@ RUN apt-get update -y && apt-get install -y $BUILD_DEPENDENCIES $RUNTIME_DEPENDE
     curl -sSL https://install.python-poetry.org | python3.11 - && \
     git clone --depth=1 https://github.com/pyenv/pyenv.git /opt/.pyenv
 # Cachebust
-ARG CACHEBUST=3
+ARG CACHEBUST=1
 # Clone bencher repository and install benchmarks, clean up, and make entrypoint script executable
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=cache,target=/root/.cache/pypoetry \
-    git clone --depth 1 https://LeoIV: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@github.com/LeoIV/bencher.git && \
+    git clone --depth 1 https://github.com/LeoIV/bencher.git && \
     for dir in /opt/bencher/*; do \
         if [ -d "$dir" ]; then \
             if [ -f "$dir/.python-version" ]; then \

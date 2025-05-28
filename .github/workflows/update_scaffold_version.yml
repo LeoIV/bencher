@@ -42,7 +42,7 @@ jobs:
               fi; \
               cd $dir && \
               poetry cache clear pypi --all && \
-              poetry update --lock bencherscaffold -v && \
+              poetry update --lock --no-cache bencherscaffold -v && \
               git add poetry.lock && \
               if [ -f "$dir/.python-version" ]; then \
                 poetry env use system; \
