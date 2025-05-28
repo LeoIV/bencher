@@ -201,6 +201,21 @@ The following benchmarks are available:
 | graph-maxcoverage2100      | 800          | binary      | [^11]          | &#x2612; |
 | graph-maxcoverage2101      | 800          | binary      | [^11]          | &#x2612; |
 
+# Citation
+If you use this repository or the benchmarks in your research, please cite the following [paper](https://arxiv.org/abs/2505.21321):
+
+```bibtex
+@misc{papenmeier2025bencher,
+      title={Bencher: Simple and Reproducible Benchmarking for Black-Box Optimization}, 
+      author={Leonard Papenmeier and Luigi Nardi},
+      year={2025},
+      eprint={2505.21321},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2505.21321}, 
+}
+```
+
 [^1]: [`LassoBench`](https://github.com/ksehic/LassoBench) (`
 Šehić Kenan, Gramfort Alexandre, Salmon Joseph and Nardi Luigi, "LassoBench: A High-Dimensional Hyperparameter Optimization Benchmark Suite for Lasso", AutoML conference, 2022.`)
 [^2]: The LassoBench paper states 19,959 features, but the number of features in the RCV1 dataset is 47,236.
